@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@import "@shilan/ui/styles/theme.css";
+
+/* Workspace packages are outside this app's folder, so Tailwind must be told to scan them. */
+@source "../../../../packages/ui/src";
+
+@custom-variant rtl (&:where([dir="rtl"], [dir="rtl"] *));
+@custom-variant ltr (&:where([dir="ltr"], [dir="ltr"] *));

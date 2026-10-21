@@ -1,0 +1,23 @@
+{
+  "name": "@shilan/firebase",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    "./collections": "./src/collections.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@shilan/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@shilan/config": "workspace:*",
+    "@types/node": "^22.19.0",
+    "eslint": "^9.39.5",
+    "typescript": "~6.0.3"
+  }
+}

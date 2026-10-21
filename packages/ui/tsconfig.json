@@ -1,0 +1,4 @@
+{
+  "extends": "@shilan/config/tsconfig/react-library.json",
+  "include": ["src"]
+}
