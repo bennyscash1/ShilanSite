@@ -1,7 +1,12 @@
 "use client";
 
 import { Button } from "@shilan/ui/components/button";
-import { PillTabs, PillTabsContent, PillTabsList, PillTabsTrigger } from "@shilan/ui/components/pill-tabs";
+import {
+  PillTabs,
+  PillTabsContent,
+  PillTabsList,
+  PillTabsTrigger,
+} from "@shilan/ui/components/pill-tabs";
 import Link from "next/link";
 import { DesktopLines } from "@/components/desktop-lines";
 import { heroTabs } from "@/content/home";
@@ -9,12 +14,16 @@ import { uiStrings } from "@/content/ui-strings";
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[560px] items-center py-16 text-white lg:min-h-[720px] lg:py-0">
+    <section className="relative py-12 text-white lg:pt-16 lg:pb-8">
       <div className="container-content">
         <PillTabs defaultValue={heroTabs[0]?.id}>
           <PillTabsList aria-label={uiStrings.audienceTabs} className="gap-1.5">
             {heroTabs.map((tab) => (
-              <PillTabsTrigger key={tab.id} value={tab.id} className="lg:min-h-[35px] lg:w-[116px] lg:px-0">
+              <PillTabsTrigger
+                key={tab.id}
+                value={tab.id}
+                className="lg:min-h-[35px] lg:w-[116px] lg:px-0"
+              >
                 {tab.label}
               </PillTabsTrigger>
             ))}

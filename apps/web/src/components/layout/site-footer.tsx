@@ -72,7 +72,7 @@ function LinkColumn({ title, links }: { title: string; links: NavLink[] }) {
 export function SiteFooter() {
   return (
     <footer id="contact" className="bg-green-900 text-white">
-      <div className="container-content py-14 lg:pt-[178px] lg:pb-[167px]">
+      <div className="container-content py-12 lg:py-16">
         <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
           <div className="order-last min-w-0 lg:order-first">
             <div className="grid grid-cols-2 gap-8 lg:grid-cols-[254px_212px_minmax(0,1fr)] lg:gap-0">

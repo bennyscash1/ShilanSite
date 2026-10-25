@@ -20,10 +20,10 @@ const icons: Record<ServiceSlug, ComponentType<SVGProps<SVGSVGElement>>> = {
 
 export function Services() {
   return (
-    <section id="services" className="bg-white py-16 lg:pt-[266px] lg:pb-[295px]">
+    <section id="services" className="bg-white py-12 lg:py-16">
       <div className="container-content">
         <SectionHeading>{servicesSection.title}</SectionHeading>
-        <ul className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:mt-[66px] lg:grid-cols-5">
+        <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:mt-8 lg:grid-cols-5">
           {services.map((service) => {
             const Icon = icons[service.slug];
             return (

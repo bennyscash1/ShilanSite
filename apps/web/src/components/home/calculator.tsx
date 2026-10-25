@@ -8,7 +8,7 @@ export async function Calculator() {
   const snapshot = await getRatesSnapshot();
 
   return (
-    <section id="calculator" className="bg-brand-radial py-16 text-white lg:pt-[243px] lg:pb-[167px]">
+    <section id="calculator" className="bg-brand-radial py-12 text-white lg:py-16">
       <div className="container-content grid grid-cols-1 items-center gap-8 lg:grid-cols-[1fr_676px] lg:gap-14">
         <div>
           <h2 className="text-display font-bold">{calculatorSection.title}</h2>
