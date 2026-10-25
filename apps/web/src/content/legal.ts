@@ -7,9 +7,8 @@
  *
  * Contact on those pages is a personal Gmail address. This site uses only the
  * published company details: office@shilan.co.il and 02-9928881.
- * The Elementor accessibility widget described on the old site is not part of
- * this site, so the statement describes the adaptations that are actually here.
- * Physical branch access is repeated from the live statement.
+ * The site embeds the Nagishli accessibility menu. The statement says so and
+ * explains how to open it. Physical branch access is repeated from the live statement.
  *
  * Placeholders the company must replace:
  * - accessibility coordinator name
@@ -40,6 +39,11 @@ export const accessibilityStatement = {
   ],
   siteNote:
     "ייתכן שחלק מהתוכן המוטמע מאתרים אחרים, כמו לוח השערים או מפות גוגל, אינו עומד באותה רמה. נשמח לקבל הערות ולסייע.",
+  menuTitle: "תפריט הנגישות",
+  menuParagraphs: [
+    "באתר מוטמע תפריט נגישות (נגיש לי). דרכו אפשר להגדיל או להקטין את הטקסט, לשנות ניגודיות וצבעים, להדגיש קישורים, ולהפעיל ניווט במקלדת.",
+    "כדי לפתוח או לסגור את התפריט לוחצים על הכפתור הירוק שעליו כתוב ״נגישות״, בפינה השמאלית התחתונה של המסך. אפשר גם להשתמש במקשים Alt ו־Z.",
+  ],
   physicalTitle: "נגישות בסניפים",
   physicalIntro: "לפי הפרטים שפרסמנו על הסניפים:",
   physicalItems: [

@@ -88,6 +88,13 @@ export function AccessibilityView() {
         </section>
 
         <section className="space-y-3">
+          <h2 className="text-h3 font-bold text-green-900">{statement.menuTitle}</h2>
+          {statement.menuParagraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </section>
+
+        <section className="space-y-3">
           <h2 className="text-h3 font-bold text-green-900">{statement.physicalTitle}</h2>
           <p>{statement.physicalIntro}</p>
           <ul className="list-disc space-y-2 ps-5">

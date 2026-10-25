@@ -1,0 +1,77 @@
+/*
+ * Brand skin for the unmodified Nagishli v2.3 widget.
+ * The plugin only ships named color presets, so these rules restyle the
+ * green preset to #084616 with a gold edge. Selectors include .shilan-nagishli,
+ * which is added after the plugin mounts, so they win against its !important rules.
+ * The widget stays hidden until that class is present, so the default black bar
+ * never flashes in the corner.
+ */
+
+nagishli#NagishLiTag > #NagishLiBar:not(.shilan-nagishli) {
+  visibility: hidden !important;
+}
+
+nagishli#NagishLiTag > #NagishLiBar.shilan-nagishli > #NagishLiBarStrip {
+  background: #084616 !important;
+  color: #ffffff !important;
+  /* Gold edge, then a cream ring so the control stays visible on the green footer. */
+  box-shadow:
+    inset 0 0 0 2px #a17510,
+    0 0 0 2px #fff8e9 !important;
+}
+
+nagishli#NagishLiTag > #NagishLiBar.shilan-nagishli > #NagishLiBarStrip > #NagishLiLogo {
+  filter: brightness(0) invert(1) !important;
+}
+
+/* Compact mode hides the word. Show it so the control has a visible name. */
+nagishli#NagishLiTag > #NagishLiBar.shilan-nagishli > #NagishLiBarStrip > #NagishLiTitle {
+  display: inline-block !important;
+  color: #ffffff !important;
+}
+
+/*
+ * Keep the reposition arrows hidden. They are generic spans with aria-label,
+ * and moving the bar would drop it onto the bottom-right WhatsApp button.
+ */
+nagishli#NagishLiTag > #NagishLiBar.shilan-nagishli > #NagishLiBarStrip > #NagishLiMove,
+nagishli#NagishLiTag > #NagishLiBar.shilan-nagishli > #NagishLiBarStrip.open > #NagishLiMove,
+nagishli#NagishLiTag > #NagishLiBar.shilan-nagishli > #NagishLiBarStrip > #NagishLiToggleMenus,
+nagishli#NagishLiTag > #NagishLiBar.shilan-nagishli > #NagishLiBarStrip.open > #NagishLiToggleMenus {
+  display: none !important;
+}
+
+nagishli#NagishLiTag > #NagishLiBar.shilan-nagishli > #NagishLiBarStrip:focus {
+  outline: 3px solid #f3d27a !important;
+  outline-offset: 3px !important;
+}
+
+nagishli#NagishLiTag > #NagishLiBar.shilan-nagishli > #NagishLiMenus.green > .nl-dropdown > .nl-dropdown-toggle {
+  background: #084616 !important;
+  color: #ffffff !important;
+  box-shadow: inset 0 -2px 0 #a17510 !important;
+}
+
+nagishli#NagishLiTag > #NagishLiBar.shilan-nagishli > #NagishLiMenus.green > .nl-dropdown > .nl-dropdown-toggle:hover,
+nagishli#NagishLiTag > #NagishLiBar.shilan-nagishli > #NagishLiMenus.green > .nl-dropdown > .nl-dropdown-toggle:focus {
+  background: #0f3313 !important;
+  color: #ffffff !important;
+}
+
+nagishli#NagishLiTag > #NagishLiBar.shilan-nagishli > #NagishLiMenus.green > .nl-dropdown > .nl-dropdown-menu > li > div,
+nagishli#NagishLiTag > #NagishLiBar.shilan-nagishli > #NagishLiMenus.green > .nl-dropdown:last-child > .nl-dropdown-menu > li:last-child > div {
+  border-color: #a17510 !important;
+  background: #fff8e9 !important;
+  color: #084616 !important;
+}
+
+nagishli#NagishLiTag > #NagishLiBar.shilan-nagishli > #NagishLiMenus.green > .nl-dropdown > .nl-dropdown-menu > li > div:hover,
+nagishli#NagishLiTag > #NagishLiBar.shilan-nagishli > #NagishLiMenus.green > .nl-dropdown > .nl-dropdown-menu > li > div:focus {
+  background: #ffffff !important;
+  color: #084616 !important;
+}
+
+nagishli#NagishLiTag > #NagishLiBar.shilan-nagishli > #NagishLiMenus.green,
+#NagishLiOverlayContent.green.shilan-nagishli {
+  scrollbar-color: #084616 #fff8e9 !important;
+}
