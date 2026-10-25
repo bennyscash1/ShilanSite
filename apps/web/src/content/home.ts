@@ -109,6 +109,12 @@ export type Testimonial = { id: string; name: string; text: string; rating: numb
 
 export const testimonialsSection = { title: "מה אומרים הלקוחות שלנו" };
 
+// Same embed as the live homepage, directly above "לקוחות ממליצים".
+export const crossRates = {
+  title: "שערים מצטלבים",
+  src: "https://il.widgets.investing.com/single-currency-crosses?theme=darkTheme&currency=23",
+} as const;
+
 // Local fallback; Firestore `testimonials` takes over in step 4.
 export const testimonials: Testimonial[] = [
   {
