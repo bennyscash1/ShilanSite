@@ -6,6 +6,18 @@
 export type LegacyRedirect = { from: string; to: string };
 
 export const legacyRedirects: LegacyRedirect[] = [
+  // WordPress paths. Next matches the percent-encoded request path, and strips
+  // a trailing slash before these rules run.
+  { from: "/%D7%94%D7%A7%D7%9E%D7%AA-%D7%9C%D7%A7%D7%95%D7%97", to: "/signup" },
+  { from: "/%D7%9C%D7%A7%D7%95%D7%97-%D7%A4%D7%A8%D7%98%D7%99", to: "/signup/private" },
+  {
+    from: "/%D7%9C%D7%A7%D7%95%D7%97-%D7%A2%D7%A1%D7%A7%D7%99-%D7%A2%D7%95%D7%A1%D7%A7-%D7%9E%D7%95%D7%A8%D7%A9%D7%94",
+    to: "/signup/osek",
+  },
+  {
+    from: "/%D7%9C%D7%A7%D7%95%D7%97-%D7%A2%D7%99%D7%A1%D7%A7%D7%99-%D7%AA%D7%90%D7%92%D7%99%D7%93",
+    to: "/signup/corporation",
+  },
   // | Old WordPress URL                  | New URL                              |
   // |------------------------------------|--------------------------------------|
   // { from: "/TODO-old-about-page/",        to: "/about" },
