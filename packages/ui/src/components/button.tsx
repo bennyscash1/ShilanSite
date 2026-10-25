@@ -4,16 +4,16 @@ import type { ComponentProps } from "react";
 import { cn } from "../lib/cn";
 
 export const buttonVariants = cva(
-  "inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-control font-normal transition-colors duration-200 disabled:pointer-events-none disabled:opacity-60 [&_svg]:size-5 [&_svg]:shrink-0",
+  "inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-control font-normal whitespace-nowrap transition-colors duration-200 disabled:pointer-events-none disabled:opacity-60 [&_svg]:size-5 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        /** Gold CTA (Figma #A17510). */
-        primary: "bg-gold-500 text-white hover:bg-gold-700",
+        /** Gold CTA. Slightly deeper than #A17510 so white text meets AA. */
+        primary: "bg-gold-650 text-white hover:bg-gold-800",
         /** White outline on dark surfaces. */
         "outline-light": "border border-white text-white hover:bg-white/10",
         /** Gold text link. */
-        "link-gold": "min-h-0 px-0 text-gold-500 underline-offset-4 hover:underline",
+        "link-gold": "min-h-0 px-0 text-gold-700 underline-offset-4 hover:underline",
         ghost: "hover:bg-black/5",
       },
       size: {

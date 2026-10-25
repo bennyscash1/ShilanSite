@@ -18,6 +18,7 @@ export function SelectTrigger({
     <SelectPrimitive.Trigger
       className={cn(
         "flex min-h-11 w-full cursor-pointer items-center justify-between gap-2 px-4 text-body outline-none",
+        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500",
         "data-placeholder:opacity-80 [&>span]:truncate",
         className,
       )}
@@ -43,8 +44,9 @@ export function SelectContent({
         position={position}
         className={cn(
           "relative z-50 max-h-(--radix-select-content-available-height) min-w-(--radix-select-trigger-width) overflow-y-auto rounded-control border border-green-900/15 bg-white text-green-900 shadow-card",
-          "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0",
-          position === "popper" && "data-[side=bottom]:translate-y-1 data-[side=top]:-translate-y-1",
+          "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0",
+          position === "popper" &&
+            "data-[side=bottom]:translate-y-1 data-[side=top]:-translate-y-1",
           className,
         )}
         {...props}
@@ -64,7 +66,7 @@ export function SelectItem({
     <SelectPrimitive.Item
       className={cn(
         "relative flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-control ps-8 pe-3 text-body outline-none select-none",
-        "data-highlighted:bg-green-900/10 data-disabled:pointer-events-none data-disabled:opacity-50",
+        "data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-green-900/10",
         className,
       )}
       {...props}

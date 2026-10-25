@@ -120,7 +120,7 @@ export function OnboardingTypePage({ customer }: { customer: CustomerType }) {
         <div className="container-content">
           <Link
             href="/signup"
-            className="inline-flex items-center gap-1 text-body text-gold-500 hover:underline"
+            className="inline-flex items-center gap-1 text-body text-gold-300 hover:underline"
           >
             <ChevronRightIcon className="size-5" aria-hidden />
             חזרה להקמת לקוח
@@ -189,7 +189,7 @@ export function OnboardingTypePage({ customer }: { customer: CustomerType }) {
                       className="flex items-center justify-between gap-4 px-5 py-4 text-body leading-snug hover:bg-cream-50"
                     >
                       <span>{document.label}</span>
-                      <span className="shrink-0 text-caption font-bold text-gold-500">למילוי</span>
+                      <span className="shrink-0 text-caption font-bold text-gold-700">למילוי</span>
                     </ExternalAnchor>
                   </li>
                 ))}
@@ -200,7 +200,7 @@ export function OnboardingTypePage({ customer }: { customer: CustomerType }) {
 
           <p className="mt-10 text-body leading-relaxed">
             אפשר גם לכתוב לנו{" "}
-            <Link href="/#contact" className="text-gold-500 underline-offset-4 hover:underline">
+            <Link href="/#contact" className="text-gold-700 underline-offset-4 hover:underline">
               בטופס שבתחתית העמוד
             </Link>
             .

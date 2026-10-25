@@ -31,6 +31,7 @@ export function Checkbox({ className, ...props }: ComponentProps<typeof Checkbox
         // 16px box with a 44px invisible hit area for touch.
         "relative size-3 shrink-0 cursor-pointer rounded-[2px] bg-white/80 text-green-900",
         "after:absolute after:-inset-3.5 after:content-[''] data-[state=checked]:bg-white",
+        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500",
         className,
       )}
       {...props}
@@ -43,16 +44,26 @@ export function Checkbox({ className, ...props }: ComponentProps<typeof Checkbox
 }
 
 /** Single-select chip group (radio semantics: one choice, arrow keys move between chips). */
-export function ChipGroup({ className, ...props }: ComponentProps<typeof RadioGroupPrimitive.Root>) {
-  return <RadioGroupPrimitive.Root className={cn("grid grid-cols-4 gap-1.5", className)} {...props} />;
+export function ChipGroup({
+  className,
+  ...props
+}: ComponentProps<typeof RadioGroupPrimitive.Root>) {
+  return (
+    <RadioGroupPrimitive.Root className={cn("grid grid-cols-4 gap-1.5", className)} {...props} />
+  );
 }
 
-export function Chip({ className, children, ...props }: ComponentProps<typeof RadioGroupPrimitive.Item>) {
+export function Chip({
+  className,
+  children,
+  ...props
+}: ComponentProps<typeof RadioGroupPrimitive.Item>) {
   return (
     <RadioGroupPrimitive.Item
       className={cn(
         "min-h-11 cursor-pointer rounded-control bg-white px-1 text-caption text-green-900 shadow-control transition-colors lg:min-h-7",
-        "hover:bg-white/90 data-[state=checked]:bg-gold-500 data-[state=checked]:text-white",
+        "hover:bg-white/90 data-[state=checked]:bg-gold-650 data-[state=checked]:text-white",
+        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500",
         className,
       )}
       {...props}

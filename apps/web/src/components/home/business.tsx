@@ -18,7 +18,7 @@ export function Business() {
               <p className="mt-1 text-body">{card.text}</p>
               <Link
                 href={card.link.href}
-                className="mt-2 self-start text-body text-gold-500 hover:underline"
+                className="mt-2 self-start text-body text-gold-300 hover:underline"
               >
                 {card.link.label}
               </Link>

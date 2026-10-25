@@ -52,6 +52,23 @@ function BranchCard({ branch }: { branch: Branch }) {
   );
 }
 
+function ExternalLink({
+  href,
+  className,
+  children,
+}: {
+  href: string;
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+      {children}
+      <span className="sr-only"> נפתח בחלון חדש</span>
+    </a>
+  );
+}
+
 function LinkColumn({ title, links }: { title: string; links: NavLink[] }) {
   return (
     <div>
@@ -104,28 +121,24 @@ export function SiteFooter() {
                     </a>
                   </li>
                   <li>
-                    <a
+                    <ExternalLink
                       href={contact.whatsapp.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="inline-block py-0.5 hover:underline"
                     >
                       {contact.whatsapp.label} <span dir="ltr">{contact.whatsapp.display}</span>
-                    </a>
+                    </ExternalLink>
                   </li>
                 </ul>
                 <h3 className="mt-5 text-title font-bold">{footer.socialTitle}</h3>
                 <ul className="mt-1 text-link">
                   {socialLinks.map((link) => (
                     <li key={link.href}>
-                      <a
+                      <ExternalLink
                         href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-block py-0.5 hover:underline"
                       >
                         {link.label}
-                      </a>
+                      </ExternalLink>
                     </li>
                   ))}
                 </ul>

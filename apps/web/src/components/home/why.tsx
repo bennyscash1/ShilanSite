@@ -20,7 +20,7 @@ export function Why() {
           {whySection.cards.map((card) => (
             <li key={card.title}>
               <GlassCard className="flex h-full min-h-[110px] flex-col justify-center px-6 py-5 lg:h-[127px] lg:ps-[55px]">
-                <h3 className="text-body font-bold text-gold-500">{card.title}</h3>
+                <h3 className="text-body font-bold text-gold-300">{card.title}</h3>
                 <p className="text-body">{card.text}</p>
               </GlassCard>
             </li>

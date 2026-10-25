@@ -10,9 +10,12 @@
   --color-green-950: #0f3313; /* radial gradient edge */
   --color-green-900: #084616; /* top bar, headings, nav, footer, calculator card */
   --color-green-700: #2b7339; /* radial gradient center */
-  --color-gold-500: #a17510; /* CTA buttons, gold titles and links */
+  --color-gold-300: #f3d27a; /* gold text on dark surfaces; meets AA on the green glass */
+  --color-gold-500: #a17510; /* gold borders and large titles */
   --color-gold-600: #9c7113; /* testimonial borders, stars, swap icon */
-  --color-gold-700: #8a630f; /* hover */
+  --color-gold-650: #906810; /* button fill: white text meets AA */
+  --color-gold-700: #8a630f; /* small gold text on white */
+  --color-gold-800: #6f4e0b; /* button hover */
   --color-cream-50: #fff8e9; /* testimonials background */
   --color-ink: #000000; /* testimonial body text */
   --color-field-bg: rgb(255 255 255 / 0.8); /* inputs on the contact form card */
