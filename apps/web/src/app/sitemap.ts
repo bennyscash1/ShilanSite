@@ -2,7 +2,9 @@ import type { MetadataRoute } from "next";
 import { siteUrl } from "@/config/site";
 import { getPublishedPosts } from "@/lib/blog/queries";
 
-export const revalidate = 3600;
+// Rendered per request so new posts appear immediately. The post list itself is cached
+// (tag "blog", cleared on every admin save), so this stays cheap.
+export const dynamic = "force-dynamic";
 
 // Only routes that exist today. Add inner pages here as they are built.
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
