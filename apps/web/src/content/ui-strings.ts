@@ -29,6 +29,6 @@ export const blogStrings = {
   empty: "בקרוב יתפרסמו כאן מאמרים.",
   home: "דף הבית",
   backToBlog: "לכל המאמרים",
-  readingTime: (minutes: number) => `${minutes} דקות קריאה`,
+  readingTime: (minutes: number) => (minutes === 1 ? "דקת קריאה" : `${minutes} דקות קריאה`),
   latest: "מאמרים נוספים",
 } as const;

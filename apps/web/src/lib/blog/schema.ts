@@ -1,10 +1,16 @@
 import { isValidSlug, type BlogPost } from "@shilan/core";
 import { z } from "zod";
 
-/** An uploaded image: https (Vercel Blob) or, in local development, a /dev-uploads/ path. */
+/**
+ * A post image: https (Vercel Blob), a /blog-seed/ cover shipped with the site,
+ * or, in local development, a /dev-uploads/ path.
+ */
 const imageUrl = z
   .string()
-  .refine((v) => /^https:\/\/\S+$/.test(v) || /^\/dev-uploads\/[\w.-]+$/.test(v), "כתובת תמונה לא תקינה");
+  .refine(
+    (v) => /^https:\/\/\S+$/.test(v) || /^\/(dev-uploads|blog-seed)\/[\w.-]+$/.test(v),
+    "כתובת תמונה לא תקינה",
+  );
 
 const imageSchema = z.object({ url: imageUrl, alt: z.string().max(200) });
 

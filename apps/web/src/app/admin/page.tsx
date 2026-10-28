@@ -5,15 +5,16 @@ import Link from "next/link";
 import { requireAdmin } from "@/lib/admin/session";
 import { formatPostDate } from "@/lib/blog/format";
 import { fetchAllPosts, storageKind } from "@/lib/blog/store";
+import { seedPostsAction } from "./actions";
 import { DeletePostButton } from "./delete-post-button";
 
 export const metadata: Metadata = { title: "פוסטים" };
 
-type Props = { searchParams: Promise<{ deleted?: string }> };
+type Props = { searchParams: Promise<{ deleted?: string; seeded?: string }> };
 
 export default async function AdminHomePage({ searchParams }: Props) {
   await requireAdmin();
-  const { deleted } = await searchParams;
+  const { deleted, seeded } = await searchParams;
   const kind = storageKind();
 
   let posts: BlogPost[] = [];
@@ -58,8 +59,22 @@ export default async function AdminHomePage({ searchParams }: Props) {
         </p>
       )}
 
+      {seeded !== undefined && (
+        <p role="status" className="mt-6 rounded-control bg-green-900/10 p-4 text-body">
+          {seeded === "0" ? "הפוסטים לדוגמה כבר קיימים." : `נוספו ${seeded} פוסטים לדוגמה ופורסמו באתר.`}
+        </p>
+      )}
+
       {kind && !loadError && posts.length === 0 && (
-        <p className="mt-10 text-center text-title">עדיין אין פוסטים. לחצו על &quot;פוסט חדש&quot; כדי להתחיל.</p>
+        <div className="mt-10 flex flex-col items-center gap-4 text-center">
+          <p className="text-title">עדיין אין פוסטים. לחצו על &quot;פוסט חדש&quot; כדי להתחיל,</p>
+          <p className="text-body">או הוסיפו 3 מאמרים מוכנים (עם תמונות) שאפשר לערוך אחר כך:</p>
+          <form action={seedPostsAction}>
+            <Button type="submit" variant="ghost" className="border border-green-900/30 bg-white">
+              הוספת 3 פוסטים לדוגמה
+            </Button>
+          </form>
+        </div>
       )}
 
       {posts.length > 0 && (

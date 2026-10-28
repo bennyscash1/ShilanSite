@@ -5,6 +5,7 @@ import { revalidatePath, updateTag } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { seedPosts } from "@/content/blog-seed";
 import {
   clearFailures,
   createSession,
@@ -138,6 +139,35 @@ export async function deletePostAction(formData: FormData): Promise<void> {
     revalidateBlog([post.slug]);
   }
   redirect("/admin?deleted=1");
+}
+
+/** Publishes the starter posts from content/blog-seed.ts, skipping any slug that already exists. */
+export async function seedPostsAction(): Promise<void> {
+  await requireAdmin();
+  const existing = new Set((await fetchAllPosts()).map((p) => p.slug));
+  const now = Date.now();
+  let added = 0;
+  for (const [i, seed] of seedPosts.entries()) {
+    if (existing.has(seed.slug)) continue;
+    // Stagger the dates a few days apart so the list has a natural order (first post newest).
+    const date = new Date(now - i * 3 * 24 * 60 * 60 * 1000).toISOString();
+    await writePost({
+      id: newPostId(),
+      slug: seed.slug,
+      title: seed.title,
+      excerpt: seed.excerpt,
+      content: seed.content,
+      coverImage: seed.coverImage,
+      status: "published",
+      createdAt: date,
+      updatedAt: date,
+      publishedAt: date,
+      seoTitle: seed.seoTitle,
+    });
+    added++;
+  }
+  revalidateBlog(seedPosts.map((s) => s.slug));
+  redirect(`/admin?seeded=${added}`);
 }
 
 /* ---------------- Images ---------------- */
