@@ -10,6 +10,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const latest = posts[0]?.updatedAt;
   return [
     { url: siteUrl, changeFrequency: "weekly", priority: 1 },
+    { url: `${siteUrl}/about`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${siteUrl}/signup`, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${siteUrl}/privacy`, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${siteUrl}/accessibility`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${siteUrl}/blog`, lastModified: latest, changeFrequency: "weekly", priority: 0.8 },
     ...posts.map((p) => ({
       url: `${siteUrl}/blog/${encodeURIComponent(p.slug)}`,
