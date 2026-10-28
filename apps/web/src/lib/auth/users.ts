@@ -17,7 +17,8 @@ export class AccountError extends Error {
 export async function resolveLoginEmail(identifier: string): Promise<string | null> {
   const value = identifier.trim();
   if (value.includes("@")) return value.toLowerCase();
-  const snap = await adminDb().collection(COLLECTIONS.usernames).doc(normalizeUsername(value)).get();
+  const db = await adminDb();
+  const snap = await db.collection(COLLECTIONS.usernames).doc(normalizeUsername(value)).get();
   return (snap.data() as UsernameRecord | undefined)?.email ?? null;
 }
 
@@ -33,14 +34,15 @@ export async function createPasswordAccount(input: {
 }): Promise<void> {
   const username = normalizeUsername(input.username);
   const email = input.email.trim().toLowerCase();
-  const db = adminDb();
+  const db = await adminDb();
+  const auth = await adminAuth();
   const usernameRef = db.collection(COLLECTIONS.usernames).doc(username);
 
   if ((await usernameRef.get()).exists) throw new AccountError("USERNAME_TAKEN");
 
   let uid: string;
   try {
-    ({ uid } = await adminAuth().createUser({ email, password: input.password, displayName: input.displayName }));
+    ({ uid } = await auth.createUser({ email, password: input.password, displayName: input.displayName }));
   } catch (error) {
     if ((error as { code?: string }).code === "auth/email-already-exists") throw new AccountError("EMAIL_TAKEN");
     throw error;
@@ -61,14 +63,15 @@ export async function createPasswordAccount(input: {
       tx.set(db.collection(COLLECTIONS.users).doc(uid), profile);
     });
   } catch (error) {
-    await adminAuth().deleteUser(uid).catch(() => {});
+    await auth.deleteUser(uid).catch(() => {});
     throw error;
   }
 }
 
 /** Creates the profile on first Google sign-in (Google accounts have no username). */
 export async function ensureGoogleProfile(uid: string, email: string, displayName: string): Promise<string> {
-  const ref = adminDb().collection(COLLECTIONS.users).doc(uid);
+  const db = await adminDb();
+  const ref = db.collection(COLLECTIONS.users).doc(uid);
   const snap = await ref.get();
   if (snap.exists) return (snap.data() as UserProfile).displayName || displayName;
   const profile: UserProfile = {
@@ -91,8 +94,9 @@ export async function createPasswordResetCode(
   email: string,
 ): Promise<{ code: string; displayName: string } | null> {
   try {
-    const user = await adminAuth().getUserByEmail(email);
-    const link = await adminAuth().generatePasswordResetLink(email);
+    const auth = await adminAuth();
+    const user = await auth.getUserByEmail(email);
+    const link = await auth.generatePasswordResetLink(email);
     const code = new URL(link).searchParams.get("oobCode");
     return code ? { code, displayName: user.displayName ?? "" } : null;
   } catch (error) {

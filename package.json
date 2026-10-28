@@ -20,5 +20,10 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "turbo": "^2.11.9",
     "typescript": "~6.0.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "jose": "5.10.0"
+    }
   }
 }

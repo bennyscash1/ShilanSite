@@ -16,7 +16,8 @@ export function isAuthConfigured(): boolean {
 
 /** Turns a fresh Firebase ID token into the long-lived httpOnly session cookie. */
 export async function startSession(idToken: string, displayName: string): Promise<void> {
-  const sessionCookie = await adminAuth().createSessionCookie(idToken, { expiresIn: maxAgeSeconds * 1000 });
+  const auth = await adminAuth();
+  const sessionCookie = await auth.createSessionCookie(idToken, { expiresIn: maxAgeSeconds * 1000 });
   const store = await cookies();
   const base = { secure: process.env.NODE_ENV === "production", sameSite: "lax" as const, path: "/", maxAge: maxAgeSeconds };
   store.set(authConfig.sessionCookie, sessionCookie, { ...base, httpOnly: true });
@@ -31,8 +32,9 @@ export async function endSession(): Promise<void> {
   store.delete(authConfig.displayCookie);
   if (token && isAuthConfigured()) {
     // Sign out everywhere this session was copied to.
-    const decoded = await adminAuth().verifySessionCookie(token).catch(() => null);
-    if (decoded) await adminAuth().revokeRefreshTokens(decoded.uid).catch(() => {});
+    const auth = await adminAuth();
+    const decoded = await auth.verifySessionCookie(token).catch(() => null);
+    if (decoded) await auth.revokeRefreshTokens(decoded.uid).catch(() => {});
   }
 }
 
@@ -42,8 +44,10 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
   const token = (await cookies()).get(authConfig.sessionCookie)?.value;
   if (!token) return null;
   try {
-    const decoded = await adminAuth().verifySessionCookie(token, true);
-    const snap = await adminDb().collection(COLLECTIONS.users).doc(decoded.uid).get();
+    const auth = await adminAuth();
+    const decoded = await auth.verifySessionCookie(token, true);
+    const db = await adminDb();
+    const snap = await db.collection(COLLECTIONS.users).doc(decoded.uid).get();
     const profile = snap.data() as UserProfile | undefined;
     return {
       uid: decoded.uid,
