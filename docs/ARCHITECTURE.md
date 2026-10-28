@@ -43,6 +43,26 @@ Workspace packages ship TypeScript source; `apps/web` compiles them via `transpi
   - `sitemap.xml` lists every published post.
 - **Deployment:** on Vercel, connect the Blob store to the project (this sets `BLOB_STORE_ID`; the SDK uses the deployment's OIDC token) and add `ADMIN_EMAIL` and `ADMIN_PASSWORD`.
 
+## Customer accounts (`apps/web`)
+
+- **Pages:** `/login`, `/register`, `/forgot-password`, `/reset-password` and `/account`. Customer onboarding (`/signup`, `/signup/[type]`) requires a signed-in user via `requireUser()`.
+- **Firebase Auth** holds the accounts. Everything runs **server-side**: there's no Firebase client SDK in the browser.
+  - Password sign-in and reset use the Identity Toolkit REST API (`src/lib/auth/identity.ts`) with `FIREBASE_API_KEY`.
+  - Accounts, session cookies and reset codes use the Admin SDK (`packages/firebase/src/admin.ts`, service account env vars).
+- **Usernames:** stored in Firestore under `usernames/{username}` → `{uid, email}`, created together with `users/{uid}` in one transaction. Login accepts a username or an email.
+- **Session:**
+  - Firebase session cookie `__session` (httpOnly, 7 days), verified on every protected request.
+  - The readable `shilan_user` cookie is only a UI hint, so static pages can show "האזור האישי". It's never trusted for access.
+- **Google:** server-side OAuth, with no client SDK.
+  - `/api/auth/google` redirects to Google with a `state` cookie. `/api/auth/google/callback` exchanges the code using the client secret.
+  - The Google ID token is passed to Firebase `signInWithIdp`, which starts a session.
+  - Firebase's Google provider must use the same OAuth client.
+- **Password reset:**
+  - The Admin SDK generates a reset link. Its `oobCode` goes into our own Hebrew page (`/reset-password`), and the email is sent through the Resend HTTP API (`RESEND_API_KEY`).
+  - Responses never reveal whether an account exists.
+- **Abuse limits:** per-IP rate limits on login, register and forgot-password (in-memory, best-effort), on top of Firebase's own protections.
+- **Local testing:** set `FIREBASE_AUTH_EMULATOR_HOST` and `FIRESTORE_EMULATOR_HOST` to use the Firebase emulators. Without Resend in development, reset links are printed to the server log.
+
 ## Future phases
 
 - **Auth (phase 2).** Firebase Auth (email + Google). `/login` and `/signup` routes already exist as placeholders. Session cookies are verified server-side with the Admin SDK.

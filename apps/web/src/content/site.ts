@@ -5,11 +5,8 @@
 
 export type NavLink = { label: string; href: string };
 
-// RTL order as in the design: "הקמת לקוח | כניסת לקוחות".
-export const topBarLinks: NavLink[] = [
-  { label: "הקמת לקוח", href: "/signup" },
-  { label: "כניסת לקוחות", href: "/login" },
-];
+// The top bar has a single account link ("כניסת לקוחות" / "האזור האישי"),
+// rendered by components/layout/account-link.tsx. Customer onboarding (/signup) is for registered users.
 
 export const mainNav: NavLink[] = [
   { label: "אודותינו", href: "/about" },
@@ -124,7 +121,6 @@ export const footer = {
   company: [
     { label: "אודותינו", href: "/about" },
     { label: "בלוג", href: "/blog" },
-    { label: "הקמת לקוח", href: "/signup" },
     { label: "כניסת לקוחות", href: "/login" },
   ] satisfies NavLink[],
   contactTitle: "יצירת קשר",

@@ -5,14 +5,16 @@
   "type": "module",
   "sideEffects": false,
   "exports": {
-    "./collections": "./src/collections.ts"
+    "./collections": "./src/collections.ts",
+    "./admin": "./src/admin.ts"
   },
   "scripts": {
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@shilan/core": "workspace:*"
+    "@shilan/core": "workspace:*",
+    "firebase-admin": "^14.5.0"
   },
   "devDependencies": {
     "@shilan/config": "workspace:*",
