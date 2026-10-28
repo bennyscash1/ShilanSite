@@ -27,6 +27,22 @@ Workspace packages ship TypeScript source; `apps/web` compiles them via `transpi
   - Original Figma values remain as `gold-500` and `gold-600` (gold on white for large titles passes).
 - **Content.** Copy lives in typed files under `apps/web/src/content`, shaped like future Firestore documents so the admin panel can take them over. Developer-written accessibility microcopy is isolated in `ui-strings.ts` for business review.
 
+## Blog and admin panel (`apps/web`)
+
+- **Routes:** `/admin/login`, `/admin`, `/admin/posts/new`, `/admin/posts/[id]`. All admin routes are `noindex` and disallowed in `robots.txt`.
+- **Auth:** a single site-owner account. Credentials come from `ADMIN_EMAIL` / `ADMIN_PASSWORD`, read in `src/config/admin.ts` and never committed, because the repo is public.
+  - The session is an HMAC-signed, httpOnly cookie (`src/lib/admin/session.ts`).
+  - Every admin page and Server Action calls `requireAdmin()`.
+  - Failed logins are rate-limited per IP (in-memory, best-effort).
+- **Storage:** Vercel Blob, a public store. Each post is one JSON document at `blog/posts/{id}.json`; images go under `blog/images/`.
+  - Without Blob credentials in development, `src/lib/blog/store.ts` falls back to `apps/web/.data/` (git-ignored). Images are served by `/dev-uploads/[file]`, which returns 404 in production.
+- **Content:** posts are written in a small markdown subset (`packages/core/src/blog/markdown.ts`). It's parsed to an AST and rendered as React elements, so author content can't inject HTML. Links are limited to http(s), mailto, tel and site-relative URLs.
+- **Caching and SEO:**
+  - Public pages read through `unstable_cache` (tag `blog`) with ISR. Saving or deleting calls `updateTag` and `revalidatePath`, so changes appear immediately.
+  - Each post has its own title, description, canonical URL, Open Graph image, and `BlogPosting` + `BreadcrumbList` JSON-LD.
+  - `sitemap.xml` lists every published post.
+- **Deployment:** on Vercel, connect the Blob store to the project (this sets `BLOB_STORE_ID`; the SDK uses the deployment's OIDC token) and add `ADMIN_EMAIL` and `ADMIN_PASSWORD`.
+
 ## Future phases
 
 - **Auth (phase 2).** Firebase Auth (email + Google). `/login` and `/signup` routes already exist as placeholders. Session cookies are verified server-side with the Admin SDK.

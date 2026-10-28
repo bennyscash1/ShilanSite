@@ -4,7 +4,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "env": ["NEXT_PUBLIC_*", "FIREBASE_*", "RATES_*", "NOTIFIER_*", "SITE_URL"],
+      "env": ["NEXT_PUBLIC_*", "FIREBASE_*", "RATES_*", "NOTIFIER_*", "SITE_URL", "ADMIN_*", "BLOB_*", "VERCEL_*"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "dev": {

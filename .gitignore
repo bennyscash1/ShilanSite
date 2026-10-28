@@ -28,3 +28,6 @@ blob-report/
 Thumbs.db
 .vscode/*
 !.vscode/extensions.json
+
+# local blog storage (development)
+.data/

@@ -7,3 +7,44 @@
 
 @custom-variant rtl (&:where([dir="rtl"], [dir="rtl"] *));
 @custom-variant ltr (&:where([dir="ltr"], [dir="ltr"] *));
+
+/* Blog post body (rendered by components/blog/post-content.tsx). */
+@layer components {
+  .post-prose {
+    @apply text-body leading-[1.75] text-green-900;
+
+    & > * + * {
+      @apply mt-5;
+    }
+    & h2 {
+      @apply mt-10 text-h3 font-bold;
+    }
+    & h3 {
+      @apply mt-8 text-title font-bold;
+    }
+    & a {
+      @apply font-medium text-gold-700 underline underline-offset-4 hover:text-green-900;
+    }
+    & ul {
+      @apply list-disc ps-6;
+    }
+    & ol {
+      @apply list-decimal ps-6;
+    }
+    & li + li {
+      @apply mt-2;
+    }
+    & blockquote {
+      @apply border-s-4 border-gold-500 bg-cream-50 py-3 ps-5 pe-4 italic;
+    }
+    & figure img {
+      @apply w-full rounded-card;
+    }
+    & figcaption {
+      @apply mt-2 text-center text-caption opacity-75;
+    }
+    & hr {
+      @apply my-10 border-green-900/15;
+    }
+  }
+}

@@ -4,8 +4,7 @@ import { Heebo } from "next/font/google";
 import Script from "next/script";
 import type { ReactNode } from "react";
 import { NagishliToolbar } from "@/components/layout/nagishli-toolbar";
-import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
+import { siteUrl } from "@/config/site";
 import { uiStrings } from "@/content/ui-strings";
 import "./globals.css";
 
@@ -17,10 +16,15 @@ const heebo = Heebo({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.SITE_URL ?? "https://shilan.co.il"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "שילן שירותי המרה",
     template: "%s | שילן שירותי המרה",
+  },
+  openGraph: {
+    siteName: "שילן שירותי המרה",
+    locale: "he_IL",
+    type: "website",
   },
 };
 
@@ -30,7 +34,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="he" dir="rtl" className={heebo.variable}>
+    <html lang="he" dir="rtl" className={heebo.variable} data-scroll-behavior="smooth">
       <body>
         <Script id="nagishli-config" strategy="beforeInteractive">
           {`window.nl_lang="he";window.nl_pos="bl";window.nl_color="green";window.nl_compact="1";window.nl_accordion="1";window.nl_link="/accessibility";window.nl_dir="/nagishli/nl-files/";`}
@@ -41,11 +45,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         >
           {uiStrings.skipToContent}
         </a>
-        <DirectionProvider>
-          <SiteHeader />
-          {children}
-          <SiteFooter />
-        </DirectionProvider>
+        {/* Header and footer live in app/(site)/layout.tsx so /admin has its own chrome. */}
+        <DirectionProvider>{children}</DirectionProvider>
         <NagishliToolbar />
       </body>
     </html>

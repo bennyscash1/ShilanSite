@@ -21,3 +21,14 @@ export const uiStrings = {
   swapCurrencies: "החלפת מטבעות",
   ratesUpdated: "עדכון אחרון:",
 } as const;
+
+/** Blog pages. Developer-written (the design has no blog page): review with the business. */
+export const blogStrings = {
+  title: "בלוג",
+  description: "מאמרים, מדריכים ועדכונים בנושא מט״ח, העברות בינלאומיות ושירותי המרה מצוות שילן.",
+  empty: "בקרוב יתפרסמו כאן מאמרים.",
+  home: "דף הבית",
+  backToBlog: "לכל המאמרים",
+  readingTime: (minutes: number) => `${minutes} דקות קריאה`,
+  latest: "מאמרים נוספים",
+} as const;
