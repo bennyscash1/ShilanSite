@@ -18,7 +18,7 @@ export const heroTabs: HeroTab[] = [
     label: "יבואנים ויצואנים",
     headline: 'מט"ח ליבואנים וליצואנים,\nבשער תחרותי ובליווי אישי',
     subtext: 'תשלום לספקים בחו"ל, קבלת תקבולים והמרתם,\nעם צוות מקצועי ואמין.',
-    cta: { label: "לשירותים לעסקים", href: "#business" },
+    cta: { label: "לשירותים לעסקים", href: "/business" },
   },
   {
     id: "companies",
@@ -43,13 +43,13 @@ export const business = {
       id: "importer",
       title: "אני יבואן",
       text: "תשלומים לספקים בחו”ל והמרת שקלים למטבע הספק",
-      link: { label: "לפתרונות ליבואנים", href: "/business/importers" },
+      link: { label: "לפתרונות ליבואנים", href: "/business#importers" },
     },
     {
       id: "exporter",
       title: "אני יצואן",
       text: "קבלת תשלומים מחו”ל והמרתם במועד שמתאים לכם",
-      link: { label: "לפתרונות ליצואנים", href: "/business/exporters" },
+      link: { label: "לפתרונות ליצואנים", href: "/business#exporters" },
     },
   ],
 };

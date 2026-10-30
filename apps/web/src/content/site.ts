@@ -109,7 +109,7 @@ export const branches: Branch[] = [
 export const footer = {
   servicesTitle: "שירותים",
   services: [
-    { label: "מט”ח לעסקים", href: "/#business" },
+    { label: "מט”ח לעסקים", href: "/business" },
     { label: "המרת מט”ח", href: "/services/fx-exchange" },
     { label: "העברות בינלאומיות", href: "/services/international-transfers" },
     { label: "מט”ח באשראי", href: "/services/fx-credit" },
