@@ -111,8 +111,8 @@ export function OnboardingHub() {
 }
 
 export function OnboardingTypePage({ customer }: { customer: CustomerType }) {
-  const primary = customer.documents[0];
-  if (!primary) return null;
+  const kycForm = customer.documents[0];
+  if (!kycForm) return null;
 
   return (
     <main id="main">
@@ -139,23 +139,16 @@ export function OnboardingTypePage({ customer }: { customer: CustomerType }) {
               מתחילים
             </h2>
             <p className="mt-3 max-w-3xl text-body leading-relaxed text-white/95">
-              קודם ממלאים את {primary.label}. אחר כך מעלים את המסמכים. אחרי השליחה אנחנו בודקים את
-              החומר וחוזרים אליכם. אם חסר משהו, ניצור קשר.
+              קודם ממלאים את {kycForm.label} מתוך רשימת המסמכים למטה. אחר כך מעלים את המסמכים. אחרי
+              השליחה אנחנו בודקים את החומר וחוזרים אליכם. אם חסר משהו, ניצור קשר.
             </p>
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <div className="mt-6">
               <Button asChild className="w-full whitespace-normal sm:w-auto">
-                <ExternalAnchor href={primary.href}>{primary.label}</ExternalAnchor>
-              </Button>
-              <Button
-                asChild
-                variant="outline-light"
-                className="w-full whitespace-normal sm:w-auto"
-              >
                 <ExternalAnchor href={customer.uploadHref}>{customer.uploadLabel}</ExternalAnchor>
               </Button>
             </div>
             <p className="mt-4 text-caption leading-relaxed text-white/80">
-              שני הקישורים נפתחים בחלון חדש. את הטפסים ממלאים באתר הטפסים, ואת המסמכים מעלים בטופס
+              הכפתור נפתח בחלון חדש. את הטפסים ממלאים מתוך הרשימה למטה, ואת המסמכים מעלים בטופס
               שבאתר שילן.
             </p>
           </div>
