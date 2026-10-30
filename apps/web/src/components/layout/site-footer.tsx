@@ -151,7 +151,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <section className="section-screen mt-16 md:mt-24" aria-labelledby="branches-heading">
+        <section className="mt-16 md:mt-24" aria-labelledby="branches-heading">
           <h2 id="branches-heading" className="text-h2 font-bold">
             {footer.branchesTitle}
           </h2>

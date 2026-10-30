@@ -8,17 +8,36 @@
 @custom-variant rtl (&:where([dir="rtl"], [dir="rtl"] *));
 @custom-variant ltr (&:where([dir="ltr"], [dir="ltr"] *));
 
-/* Major sections fill the desktop viewport and stay padded, not stretched, on small screens. */
+/* Content-height sections: airy padding, no forced viewport height. */
 .section-screen {
   padding-block: 3.5rem;
 }
 @media (min-width: 48rem) {
   .section-screen {
+    padding-block: 7rem;
+  }
+}
+
+/*
+ * Homepage hero only. Fills the first screen under the real header
+ * (mobile bar is 4rem; from lg, the 50px top bar plus the 118px header).
+ */
+.section-hero {
+  padding-block: 3.5rem;
+}
+@media (min-width: 48rem) {
+  .section-hero {
     display: flex;
-    min-height: 100svh;
+    min-height: calc(100svh - 4rem);
     flex-direction: column;
     justify-content: center;
-    padding-block: 6rem;
+    padding-block: 3rem;
+  }
+}
+@media (min-width: 64rem) {
+  .section-hero {
+    /* One screen under the header, capped so a 1080p display does not open a tall empty field. */
+    min-height: min(calc(100svh - 10.5rem), 46rem);
   }
 }
 

@@ -15,7 +15,7 @@ export function HeroBackdrop({ children }: { children: ReactNode }) {
         preload
         placeholder="blur"
         sizes="(min-width: 1024px) 170vw, 100vw"
-        className="absolute inset-0 -z-10 size-full object-cover object-[22%_30%] lg:inset-auto lg:end-[-22.57%] lg:top-[-17.5vw] lg:aspect-[1695/1347] lg:h-auto lg:w-[169.5%] lg:max-w-none lg:object-fill"
+        className="absolute inset-0 -z-10 size-full object-cover object-[22%_30%] lg:inset-auto lg:end-[-22.57%] lg:top-[-15.75rem] lg:aspect-[1695/1347] lg:h-auto lg:w-[169.5%] lg:max-w-none lg:object-fill"
       />
       {/* Mobile only: text sits over the globe, so darken for legibility. */}
       <div aria-hidden className="absolute inset-0 -z-10 bg-green-950/45 lg:hidden" />
