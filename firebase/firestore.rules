@@ -1,0 +1,10 @@
+rules_version = '2';
+// The site has no Firebase client SDK. Auth, profiles and documents go through the Admin SDK,
+// which bypasses these rules. Denying client access matches that server-only setup.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

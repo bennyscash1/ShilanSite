@@ -2,17 +2,15 @@ import { describe, expect, it } from "vitest";
 import { customerTypes } from "./onboarding";
 
 describe("onboarding links", () => {
-  it("keeps the live form and upload addresses", () => {
+  it("keeps the live form addresses, including the KYC form", () => {
     expect(
       customerTypes.map((customer) => ({
         slug: customer.slug,
-        uploadHref: customer.uploadHref,
         documents: customer.documents,
       })),
     ).toEqual([
       {
         slug: "private",
-        uploadHref: "https://shilan.co.il/לקוח-פרטי/",
         documents: [
           {
             label: "טופס הכרת לקוח",
@@ -38,7 +36,6 @@ describe("onboarding links", () => {
       },
       {
         slug: "osek",
-        uploadHref: "https://shilan.co.il/לקוח-עסקי-עוסק-מורשה/",
         documents: [
           {
             label: "טופס הכרת לקוח עסקי",
@@ -68,7 +65,6 @@ describe("onboarding links", () => {
       },
       {
         slug: "corporation",
-        uploadHref: "https://shilan.co.il/לקוח-עיסקי-תאגיד/",
         documents: [
           {
             label: "טופס הכרת לקוח תאגיד",

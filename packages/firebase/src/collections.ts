@@ -15,9 +15,23 @@ export const COLLECTIONS = {
   rateLimits: "rateLimits",
 } as const;
 
+/** Subcollections under users/{uid}. */
+export const SUBCOLLECTIONS = {
+  documents: "documents",
+} as const;
+
 export type CollectionName = (typeof COLLECTIONS)[keyof typeof COLLECTIONS];
 
 export type SignInProvider = "password" | "google";
+
+/** Which onboarding flow the customer last uploaded from. */
+export type CustomerKind = "private" | "osek" | "corporation";
+
+/**
+ * Lifecycle of a stored file. `uploaded` is the only status the site sets today.
+ * `pending_signature` and `signed` are reserved for a later fill-and-sign flow.
+ */
+export type DocumentStatus = "uploaded" | "pending_signature" | "signed";
 
 /** users/{uid} */
 export interface UserProfile {
@@ -29,6 +43,24 @@ export interface UserProfile {
   provider: SignInProvider;
   /** ISO-8601 */
   createdAt: string;
+  /** Present only when the customer gave a phone number. */
+  phone?: string;
+  customerType?: CustomerKind;
+}
+
+/** users/{uid}/documents/{id} */
+export interface CustomerDocumentRecord {
+  name: string;
+  contentType: string;
+  size: number;
+  /** Storage object path, always under customers/{uid}/. */
+  path: string;
+  /** ISO-8601 */
+  uploadedAt: string;
+  status: DocumentStatus;
+  /** Future fill-and-sign form key, for example "kyc". */
+  docType?: string;
+  customerType?: CustomerKind;
 }
 
 /** usernames/{username} */

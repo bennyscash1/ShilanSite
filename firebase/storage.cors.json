@@ -1,0 +1,13 @@
+[
+  {
+    "origin": [
+      "https://shilan-site.vercel.app",
+      "https://shilan.co.il",
+      "https://www.shilan.co.il",
+      "http://localhost:3000"
+    ],
+    "method": ["GET", "HEAD", "PUT", "OPTIONS"],
+    "responseHeader": ["Content-Type", "x-goog-content-length-range"],
+    "maxAgeSeconds": 3600
+  }
+]

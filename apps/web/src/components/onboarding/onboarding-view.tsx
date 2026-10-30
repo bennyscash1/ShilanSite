@@ -1,4 +1,4 @@
-import { Button, buttonVariants } from "@shilan/ui/components/button";
+import { buttonVariants } from "@shilan/ui/components/button";
 import { SectionHeading } from "@shilan/ui/components/section-heading";
 import { cn } from "@shilan/ui/lib/cn";
 import {
@@ -11,7 +11,9 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import type { ComponentProps } from "react";
+import { DocumentUploader } from "@/components/documents/uploader";
 import { customerTypes, onboarding, type CustomerType } from "@/content/onboarding";
+import { isStorageBucketReady } from "@/lib/documents/store";
 
 const typeIcons: Record<CustomerType["slug"], LucideIcon> = {
   private: UserIcon,
@@ -110,9 +112,16 @@ export function OnboardingHub() {
   );
 }
 
-export function OnboardingTypePage({ customer }: { customer: CustomerType }) {
+export async function OnboardingTypePage({ customer }: { customer: CustomerType }) {
   const kycForm = customer.documents[0];
   if (!kycForm) return null;
+  let storageUnavailable = false;
+  try {
+    storageUnavailable = !(await isStorageBucketReady());
+  } catch (error) {
+    console.error("[documents] storage probe", error);
+    storageUnavailable = true;
+  }
 
   return (
     <main id="main">
@@ -143,13 +152,14 @@ export function OnboardingTypePage({ customer }: { customer: CustomerType }) {
               השליחה אנחנו בודקים את החומר וחוזרים אליכם. אם חסר משהו, ניצור קשר.
             </p>
             <div className="mt-6">
-              <Button asChild className="w-full whitespace-normal sm:w-auto">
-                <ExternalAnchor href={customer.uploadHref}>{customer.uploadLabel}</ExternalAnchor>
-              </Button>
+              <DocumentUploader
+                customerType={customer.slug}
+                unavailable={storageUnavailable}
+                tone="dark"
+              />
             </div>
             <p className="mt-4 text-caption leading-relaxed text-white/80">
-              הכפתור נפתח בחלון חדש. את הטפסים ממלאים מתוך הרשימה למטה, ואת המסמכים מעלים בטופס
-              שבאתר שילן.
+              את הטפסים ממלאים מתוך הרשימה למטה. את המסמכים מעלים כאן, מהמחשב או מהטלפון.
             </p>
           </div>
         </div>

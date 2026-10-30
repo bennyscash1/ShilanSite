@@ -17,7 +17,10 @@ const usingEmulators = () =>
 
 export function isFirebaseAdminConfigured(): boolean {
   if (!process.env.FIREBASE_PROJECT_ID) return false;
-  return usingEmulators() || Boolean(process.env.FIREBASE_CLIENT_EMAIL && process.env.FIREBASE_PRIVATE_KEY);
+  return (
+    usingEmulators() ||
+    Boolean(process.env.FIREBASE_CLIENT_EMAIL && process.env.FIREBASE_PRIVATE_KEY)
+  );
 }
 
 let appPromise: Promise<App> | undefined;
@@ -30,7 +33,9 @@ function adminApp(): Promise<App> {
       if (existing) return existing;
       const projectId = process.env.FIREBASE_PROJECT_ID;
       if (!isFirebaseAdminConfigured() || !projectId) {
-        throw new Error("Firebase Admin is not configured (FIREBASE_PROJECT_ID / service account).");
+        throw new Error(
+          "Firebase Admin is not configured (FIREBASE_PROJECT_ID / service account).",
+        );
       }
       return usingEmulators()
         ? initializeApp({ projectId })
@@ -59,4 +64,17 @@ export async function adminAuth(): Promise<Auth> {
 export async function adminDb(): Promise<Firestore> {
   const { getFirestore } = await import("firebase-admin/firestore");
   return getFirestore(await adminApp());
+}
+
+/** Default bucket for the shilansite Firebase project (US-WEST1). */
+export const DEFAULT_STORAGE_BUCKET = "shilansite.firebasestorage.app";
+
+export function storageBucketName(): string {
+  const configured = process.env.FIREBASE_STORAGE_BUCKET?.trim();
+  return configured || DEFAULT_STORAGE_BUCKET;
+}
+
+export async function adminBucket() {
+  const { getStorage } = await import("firebase-admin/storage");
+  return getStorage(await adminApp()).bucket(storageBucketName());
 }

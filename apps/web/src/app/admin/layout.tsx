@@ -16,19 +16,32 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   return (
     <div className="min-h-dvh bg-cream-50">
       <header className="border-b border-green-900/10 bg-white">
-        <div className="container-content flex h-16 items-center gap-4">
+        <div className="container-content flex min-h-16 flex-wrap items-center gap-4 py-2">
           <Logo className="block h-10 shrink-0" />
           <p className="text-title font-bold">ניהול האתר</p>
           {session && (
-            <nav className="ms-auto flex items-center gap-1 text-body">
+            <nav className="ms-auto flex flex-wrap items-center justify-end gap-1 text-body">
               <Link href="/admin" className="rounded-control px-3 py-2 hover:bg-green-900/5">
                 פוסטים
               </Link>
-              <Link href="/blog" target="_blank" className="rounded-control px-3 py-2 hover:bg-green-900/5">
+              <Link
+                href="/admin/customers"
+                className="rounded-control px-3 py-2 hover:bg-green-900/5"
+              >
+                ניהול לקוחות
+              </Link>
+              <Link
+                href="/blog"
+                target="_blank"
+                className="rounded-control px-3 py-2 hover:bg-green-900/5"
+              >
                 לבלוג באתר
               </Link>
               <form action={logoutAction}>
-                <button type="submit" className="cursor-pointer rounded-control px-3 py-2 hover:bg-green-900/5">
+                <button
+                  type="submit"
+                  className="cursor-pointer rounded-control px-3 py-2 hover:bg-green-900/5"
+                >
                   יציאה
                 </button>
               </form>

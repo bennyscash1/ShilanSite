@@ -13,9 +13,9 @@
  *   בנכס פיננסי ונותני שירותי אשראי), תשע"ח-2018
  *   https://www.nevo.co.il/law_html/law00/154372.htm
  *
- * File upload is an Elementor form on each live sub-page (no separate URL).
- * The upload buttons point at those pages. One iForms address is shared by
- * the three "מקבל שירות" forms; the label on each page is kept as published.
+ * Documents are uploaded on this site. The form links stay on iForms.
+ * One iForms address is shared by the three "מקבל שירות" forms;
+ * the label on each page is kept as published.
  */
 
 export type OnboardingDocument = {
@@ -39,8 +39,6 @@ export type CustomerType = {
   needs: string[];
   documentsNote: string;
   documents: OnboardingDocument[];
-  uploadLabel: string;
-  uploadHref: string;
 };
 
 const SERVICE_DECLARATION_HREF =
@@ -108,8 +106,6 @@ export const customerTypes: CustomerType[] = [
         href: "https://flow.iforms.co.il/Show_form/fx1qqra4v2o8okswc0kksoks440084",
       },
     ],
-    uploadLabel: "העלאת קבצים",
-    uploadHref: "https://shilan.co.il/לקוח-פרטי/",
   },
   {
     slug: "osek",
@@ -152,8 +148,6 @@ export const customerTypes: CustomerType[] = [
         href: "https://flow.iforms.co.il/Show_form/iyspha69m2o0kw00wks40gc4k80s0w",
       },
     ],
-    uploadLabel: "העלאת מסמכים",
-    uploadHref: "https://shilan.co.il/לקוח-עסקי-עוסק-מורשה/",
   },
   {
     slug: "corporation",
@@ -200,8 +194,6 @@ export const customerTypes: CustomerType[] = [
         href: "https://flow.iforms.co.il/Show_form/or5fiyabsw0084c00o0so08g0sg080",
       },
     ],
-    uploadLabel: "העלאת מסמכים",
-    uploadHref: "https://shilan.co.il/לקוח-עיסקי-תאגיד/",
   },
 ];
 
