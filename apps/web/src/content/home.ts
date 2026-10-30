@@ -23,16 +23,16 @@ export const heroTabs: HeroTab[] = [
   {
     id: "companies",
     label: "חברות ותאגידים",
-    headline: "TODO_COPY",
-    subtext: "TODO_COPY",
-    cta: { label: "TODO_COPY", href: "#services" },
+    headline: 'מט"ח לחברות ולתאגידים,\nבשער מועדף ובליווי מנהל תיק',
+    subtext: 'המרות ותשלומים בינלאומיים,\nעם מענה אישי שמותאם לארגון.',
+    cta: { label: "לשירותים לעסקים", href: "/business" },
   },
   {
     id: "private",
     label: "לקוחות פרטיים",
-    headline: "TODO_COPY",
-    subtext: "TODO_COPY",
-    cta: { label: "TODO_COPY", href: "#services" },
+    headline: 'מט"ח ללקוחות פרטיים,\nבשער משתלם ובליווי אישי',
+    subtext: 'המרת מטבע, העברות לחו"ל ורכישה באשראי,\nעם צוות מקצועי ואמין.',
+    cta: { label: "לשירותים לפרטיים", href: "/services/fx-exchange" },
   },
 ];
 
