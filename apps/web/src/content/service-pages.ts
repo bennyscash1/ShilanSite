@@ -48,6 +48,10 @@ export const servicePages = {
     title: "כרטיס אשראי נטען",
     description: "כרטיס אחד, מגוון אפשרויות.",
   },
+  "check-discounting": {
+    title: "נכיון שיקים",
+    description: "לעסקים שמקבלים שיקים דחויים וצריכים מימון חוץ בנקאי.",
+  },
 } as const;
 
 export type ServiceSlug = keyof typeof servicePages;

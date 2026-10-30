@@ -1,5 +1,9 @@
+import { Button } from "@shilan/ui/components/button";
 import { SectionHeading } from "@shilan/ui/components/section-heading";
+import { ClockIcon, MessagesSquareIcon, ShieldCheckIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { CheckDiscountingIcon } from "@/components/icons/figma-icons";
 import { currencies } from "@/content/service-pages";
 import { AudienceCards, CallVip, FeatureRow, PhotoHero } from "./service-blocks";
 
@@ -387,6 +391,137 @@ export function BusinessFxView() {
       </section>
 
       <CallVip />
+    </main>
+  );
+}
+
+const checkSteps = [
+  {
+    title: "פונים אלינו",
+    text: "משאירים פרטים ומתארים בקצרה את הצורך: שיק דחוי, ומימון עד למועד הפירעון.",
+  },
+  {
+    title: "מעבירים את מה שנבקש",
+    text: "כדי לבדוק את הפנייה נבקש פרטים על השיק ועל הפעילות. בלי זה אי אפשר לדעת אם יש מסלול מתאים.",
+  },
+  {
+    title: "מקבלים תשובה",
+    text: "אם אפשר להתקדם, נסביר מה השלב הבא. אם לא, נאמר זאת. אין התחייבות מראש שהשירות יינתן.",
+  },
+];
+
+const checkAudiences = [
+  {
+    title: "שיקים דחויים מלקוחות",
+    text: "עסקים שמקבלים שיקים שמועד הפירעון שלהם עדיין לא הגיע.",
+  },
+  {
+    title: "צורך במימון עד הפירעון",
+    text: "כשהתשלום קבוע למועד מאוחר יותר, והעסק בודק אפשרות למימון בינתיים.",
+  },
+  {
+    title: "מסלול חוץ בנקאי",
+    text: "מי שבוחן אפשרות נוספת לצד הבנק. כל פנייה נבדקת, ואין הבטחה מראש.",
+  },
+];
+
+const checkQuestions = [
+  {
+    q: "מה זה נכיון שיקים?",
+    a: "שיק דחוי הוא התחייבות לתשלום במועד עתידי. נכיון שיקים הוא בירור האפשרות לקבל מימון כנגד השיק לפני מועד הפירעון. כל פנייה נבדקת לגופה.",
+  },
+  {
+    q: "האם כל שיק מתאים?",
+    a: "לא. פרטי השיק, הצדדים והנסיבות נבדקים. רק אחרי הבדיקה אפשר לדעת אם יש מסלול מתאים.",
+  },
+  {
+    q: "למי זה מיועד?",
+    a: "לעסקים שמקבלים שיקים דחויים ושוקלים מימון חוץ בנקאי עד למועד הפירעון.",
+  },
+  {
+    q: "איך מתחילים?",
+    a: "משאירים פרטים ביצירת קשר. נחזור אליכם כדי להבין את הצורך ומה נדרש להמשך.",
+  },
+];
+
+export function CheckDiscountingView() {
+  return (
+    <main id="main">
+      <PhotoHero image="/services/checks/hero.jpg" imageAlt="">
+        <SectionHeading as="h1" tone="light">
+          נכיון שיקים
+        </SectionHeading>
+        <p className="mt-4 max-w-3xl text-lead">
+          לעסקים שמקבלים שיקים דחויים וצריכים מימון חוץ בנקאי
+        </p>
+        <p className="mt-4 max-w-3xl text-body leading-relaxed">
+          אפשר לפנות אלינו כדי לבדוק אם יש מסלול למימון כנגד שיק דחוי, לפני מועד הפירעון. הפנייה
+          אינה התחייבות: כל מקרה נבחן לפי הפרטים שיועברו.
+        </p>
+        <ul className="mt-10 grid gap-8 sm:grid-cols-3 md:mt-14">
+          {[
+            { icon: CheckDiscountingIcon, title: "שיקים דחויים", text: "מימון לפני מועד הפירעון" },
+            { icon: ShieldCheckIcon, title: "בדיקה אישית", text: "כל פנייה נבחנת לגופה" },
+            { icon: ClockIcon, title: "בלי התחייבות מראש", text: "קודם מבינים, אחר כך מחליטים" },
+          ].map((item) => (
+            <li key={item.title} className="flex flex-col items-center text-center">
+              <item.icon className="size-12 text-white" aria-hidden />
+              <p className="mt-4 text-title font-bold">{item.title}</p>
+              <p className="text-body">{item.text}</p>
+            </li>
+          ))}
+        </ul>
+      </PhotoHero>
+
+      <section className="section-screen bg-white">
+        <div className="container-content">
+          <h2 className="text-center text-h2 font-bold text-green-900">איך זה עובד</h2>
+          <ol className="mt-10 grid gap-5 md:grid-cols-3">
+            {checkSteps.map((step, index) => (
+              <li key={step.title} className="rounded-card border border-gold-500 px-6 py-8">
+                <span className="text-display font-bold text-gold-500" aria-hidden>
+                  {index + 1}
+                </span>
+                <h3 className="mt-3 text-title font-bold text-green-900">{step.title}</h3>
+                <p className="mt-2 text-body leading-relaxed">{step.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="section-screen bg-green-900 text-white">
+        <div className="container-content">
+          <AudienceCards title="למי זה מתאים" cards={checkAudiences} />
+        </div>
+      </section>
+
+      <section className="section-screen bg-cream-50">
+        <div className="container-content">
+          <h2 className="text-center text-h2 font-bold text-green-900">שאלות לפני שפונים</h2>
+          <dl className="mx-auto mt-10 max-w-3xl space-y-4">
+            {checkQuestions.map((item) => (
+              <div key={item.q} className="rounded-card border border-gold-500 bg-white px-6 py-5">
+                <dt className="text-title font-bold text-green-900">{item.q}</dt>
+                <dd className="mt-2 text-body leading-relaxed">{item.a}</dd>
+              </div>
+            ))}
+          </dl>
+          <div className="mt-12 text-center">
+            <p className="text-title font-bold text-green-900">נשמח לבדוק את הפנייה</p>
+            <p className="mx-auto mt-3 max-w-2xl text-body leading-relaxed">
+              השאירו פרטים ונחזור אליכם. השיחה היא לבירור בלבד, בלי התחייבות ובלי הבטחה שהשירות
+              יינתן.
+            </p>
+            <Button asChild className="mt-6">
+              <Link href="/#contact">
+                <MessagesSquareIcon className="size-4" aria-hidden />
+                ליצירת קשר
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

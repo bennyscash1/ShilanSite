@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { ComponentType } from "react";
-import { FxCreditView, FxExchangeView, PrepaidView, TransfersView } from "@/components/services/service-views";
+import {
+  CheckDiscountingView,
+  FxCreditView,
+  FxExchangeView,
+  PrepaidView,
+  TransfersView,
+} from "@/components/services/service-views";
 import { servicePages, type ServiceSlug } from "@/content/service-pages";
 
 const views: Record<ServiceSlug, ComponentType> = {
@@ -9,6 +15,7 @@ const views: Record<ServiceSlug, ComponentType> = {
   "international-transfers": TransfersView,
   "fx-credit": FxCreditView,
   "prepaid-card": PrepaidView,
+  "check-discounting": CheckDiscountingView,
 };
 
 export function generateStaticParams() {
