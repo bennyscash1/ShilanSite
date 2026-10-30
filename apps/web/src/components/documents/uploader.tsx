@@ -134,8 +134,7 @@ export function DocumentUploader({
     patch(key, { state: "done", progress: 100, message: t.uploaded });
   }
 
-  async function onPick(fileList: FileList | null) {
-    const files = fileList ? Array.from(fileList) : [];
+  async function onPick(files: File[]) {
     if (files.length === 0) return;
     if (files.length > MAX_FILES_PER_BATCH) {
       setNotice(t.tooMany);
@@ -189,9 +188,9 @@ export function DocumentUploader({
           className="sr-only"
           disabled={unavailable || busy}
           onChange={(event) => {
-            const list = event.target.files;
+            const files = Array.from(event.target.files ?? []);
             event.target.value = "";
-            void onPick(list);
+            void onPick(files);
           }}
         />
       </label>
