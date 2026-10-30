@@ -9,7 +9,7 @@ function Fact({ children }: { children: ReactNode }) {
 
 function BranchCard({ branch }: { branch: Branch }) {
   return (
-    <li className="flex h-full min-w-0 flex-col rounded-card border border-white/80 bg-white/10 p-5 text-link leading-normal">
+    <li className="flex h-full min-w-0 flex-col rounded-card border border-white/80 bg-white/10 p-5 text-link leading-normal md:p-8">
       <h3 className="text-title font-bold lg:min-h-14">{branch.name}</h3>
       <div className="mt-2 lg:min-h-24">
         {branch.lines.map((line) => (
@@ -45,7 +45,7 @@ function BranchCard({ branch }: { branch: Branch }) {
           title={branch.map.title}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          className="h-44 w-full rounded-control border-0"
+          className="h-44 w-full rounded-control border-0 md:h-56"
         />
       </div>
     </li>
@@ -89,7 +89,7 @@ function LinkColumn({ title, links }: { title: string; links: NavLink[] }) {
 export function SiteFooter() {
   return (
     <footer id="contact" className="bg-green-900 text-white">
-      <div className="container-content py-12 lg:py-16">
+      <div className="container-content py-16 md:py-24">
         <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
           <div className="order-last min-w-0 lg:order-first">
             <div className="grid grid-cols-2 gap-8 lg:grid-cols-[254px_212px_minmax(0,1fr)] lg:gap-0">
@@ -151,12 +151,12 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <section className="mt-12 lg:mt-16" aria-labelledby="branches-heading">
+        <section className="section-screen mt-16 md:mt-24" aria-labelledby="branches-heading">
           <h2 id="branches-heading" className="text-h2 font-bold">
             {footer.branchesTitle}
           </h2>
-          <p className="mt-3 max-w-3xl text-link">{footer.branchesIntro}</p>
-          <ul className="mt-6 grid grid-cols-1 items-stretch gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+          <p className="mt-4 max-w-3xl text-link">{footer.branchesIntro}</p>
+          <ul className="mt-8 grid grid-cols-1 items-stretch gap-5 md:mt-12 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
             {branches.map((branch) => (
               <BranchCard key={branch.name} branch={branch} />
             ))}

@@ -11,14 +11,15 @@ export default async function AccountPage() {
 
   return (
     <main id="main">
-      <section className="bg-brand-radial py-12 text-white lg:py-16">
+      <section className="section-screen bg-brand-radial text-white">
         <div className="container-content">
           <h1 className="text-display font-bold">{t.accountTitle(user.displayName)}</h1>
           <p className="mt-3 text-lead">{t.accountSubtitle}</p>
         </div>
       </section>
 
-      <section className="container-content py-12 lg:py-16">
+      <section className="section-screen">
+        <div className="container-content w-full">
         <ul className="grid gap-4 md:grid-cols-3">
           {customerTypes.map((customer) => (
             <li key={customer.slug}>
@@ -33,6 +34,7 @@ export default async function AccountPage() {
             </li>
           ))}
         </ul>
+        </div>
       </section>
     </main>
   );

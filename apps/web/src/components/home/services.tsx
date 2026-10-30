@@ -20,23 +20,23 @@ const icons: Record<ServiceSlug, ComponentType<SVGProps<SVGSVGElement>>> = {
 
 export function Services() {
   return (
-    <section id="services" className="bg-white py-12 lg:py-16">
+    <section id="services" className="section-screen bg-white">
       <div className="container-content">
         <SectionHeading>{servicesSection.title}</SectionHeading>
-        <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:mt-8 lg:grid-cols-5">
+        <ul className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 md:mt-14 md:gap-6 lg:grid-cols-5 lg:gap-8">
           {services.map((service) => {
             const Icon = icons[service.slug];
             return (
               <li key={service.slug}>
                 <Link
                   href={`/services/${service.slug}`}
-                  className="flex h-full min-h-[200px] flex-col items-center rounded-card border border-gold-500 bg-white px-3 pt-9 pb-6 text-center shadow-card transition-shadow hover:shadow-[0_6px_28px_rgb(0_0_0/0.16)] lg:h-[220px] lg:pb-0"
+                  className="flex h-full min-h-64 flex-col items-center rounded-card border border-gold-500 bg-white px-4 pt-10 pb-8 text-center shadow-card transition-shadow hover:shadow-[0_6px_28px_rgb(0_0_0/0.16)] md:min-h-80 md:px-5 md:pt-12 md:pb-10"
                 >
-                  <span className="flex h-12 items-center text-green-900">
+                  <span className="flex h-16 items-center text-green-900 md:h-20 [&_svg]:h-14 [&_svg]:w-auto md:[&_svg]:h-16">
                     <Icon />
                   </span>
-                  <h3 className="mt-3 text-title font-bold text-gold-500">{service.title}</h3>
-                  <p className="text-body leading-[1.1] whitespace-pre-line">{service.summary}</p>
+                  <h3 className="mt-4 text-title font-bold text-gold-500 md:mt-6 md:text-lead">{service.title}</h3>
+                  <p className="mt-2 text-body leading-snug whitespace-pre-line md:text-title">{service.summary}</p>
                 </Link>
               </li>
             );

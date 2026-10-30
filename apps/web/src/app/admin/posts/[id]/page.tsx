@@ -16,7 +16,7 @@ export default async function EditPostPage({ params, searchParams }: Props) {
   if (!post) notFound();
 
   return (
-    <main id="main" className="container-content py-10">
+    <main id="main" className="container-content py-16 md:py-24">
       <h1 className="mb-6 text-h3 font-bold">עריכת פוסט</h1>
       <PostEditor post={post} siteUrl={siteUrl} justSaved={saved === "1"} />
     </main>

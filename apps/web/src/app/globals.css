@@ -8,6 +8,20 @@
 @custom-variant rtl (&:where([dir="rtl"], [dir="rtl"] *));
 @custom-variant ltr (&:where([dir="ltr"], [dir="ltr"] *));
 
+/* Major sections fill the desktop viewport and stay padded, not stretched, on small screens. */
+.section-screen {
+  padding-block: 3.5rem;
+}
+@media (min-width: 48rem) {
+  .section-screen {
+    display: flex;
+    min-height: 100svh;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 6rem;
+  }
+}
+
 /* Blog post body (rendered by components/blog/post-content.tsx). */
 @layer components {
   .post-prose {

@@ -6,7 +6,7 @@ export const authInput =
 
 export function AuthCard({ title, subtitle, children }: { title: string; subtitle?: ReactNode; children: ReactNode }) {
   return (
-    <main id="main" className="bg-cream-50 py-12 lg:py-20">
+    <main id="main" className="bg-cream-50 py-16 md:py-28">
       <div className="container-content flex justify-center">
         <div className="w-full max-w-md rounded-card border border-gold-500/60 bg-white p-6 shadow-card sm:p-8">
           <h1 className="text-h3 font-bold">{title}</h1>

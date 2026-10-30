@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "פוסט חדש" };
 export default async function NewPostPage() {
   await requireAdmin();
   return (
-    <main id="main" className="container-content py-10">
+    <main id="main" className="container-content py-16 md:py-24">
       <h1 className="mb-6 text-h3 font-bold">פוסט חדש</h1>
       <PostEditor siteUrl={siteUrl} />
     </main>

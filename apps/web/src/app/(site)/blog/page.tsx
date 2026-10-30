@@ -20,14 +20,15 @@ export default async function BlogIndexPage() {
 
   return (
     <main id="main">
-      <section className="bg-brand-radial py-14 text-white lg:py-20">
+      <section className="section-screen bg-brand-radial text-white">
         <div className="container-content">
           <h1 className="text-display font-bold">{blogStrings.title}</h1>
           <p className="mt-3 max-w-2xl text-lead">{blogStrings.description}</p>
         </div>
       </section>
 
-      <section className="container-content py-14 lg:py-20">
+      <section className="section-screen">
+        <div className="container-content w-full">
         {posts.length === 0 ? (
           <p className="text-center text-title">{blogStrings.empty}</p>
         ) : (
@@ -39,6 +40,7 @@ export default async function BlogIndexPage() {
             ))}
           </ul>
         )}
+        </div>
       </section>
 
       <JsonLd

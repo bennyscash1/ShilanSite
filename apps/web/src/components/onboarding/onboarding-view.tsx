@@ -32,16 +32,16 @@ function ExternalAnchor({ children, ...props }: ComponentProps<"a">) {
 
 function Steps() {
   return (
-    <section className="bg-cream-50 py-12 lg:py-16" aria-labelledby="onboarding-steps">
-      <div className="container-content">
+    <section className="section-screen bg-cream-50" aria-labelledby="onboarding-steps">
+      <div className="container-content w-full">
         <h2 id="onboarding-steps" className="text-h2 font-bold text-green-900">
           {onboarding.stepsTitle}
         </h2>
-        <ol className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3 lg:mt-8">
+        <ol className="mt-8 grid grid-cols-1 gap-5 md:mt-12 md:grid-cols-3 md:gap-8">
           {onboarding.steps.map((step, index) => (
             <li
               key={step.title}
-              className="rounded-card border border-gold-500 bg-white p-6 shadow-card"
+              className="rounded-card border border-gold-500 bg-white p-6 shadow-card md:p-8"
             >
               <span
                 aria-hidden
@@ -62,8 +62,8 @@ function Steps() {
 export function OnboardingHub() {
   return (
     <main id="main">
-      <section className="bg-brand-radial py-12 text-white lg:py-16">
-        <div className="container-content">
+      <section className="section-screen bg-brand-radial text-white">
+        <div className="container-content w-full">
           <SectionHeading as="h1" tone="light">
             {onboarding.title}
           </SectionHeading>
@@ -77,19 +77,19 @@ export function OnboardingHub() {
 
       <Steps />
 
-      <section className="bg-white py-12 lg:py-16" aria-labelledby="onboarding-types">
-        <div className="container-content">
+      <section className="section-screen bg-white" aria-labelledby="onboarding-types">
+        <div className="container-content w-full">
           <h2 id="onboarding-types" className="text-h2 font-bold text-green-900">
             {onboarding.chooseTitle}
           </h2>
-          <ul className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3 lg:mt-8">
+          <ul className="mt-8 grid grid-cols-1 gap-5 md:mt-12 md:grid-cols-3 md:gap-8">
             {customerTypes.map((customer) => {
               const Icon = typeIcons[customer.slug];
               return (
                 <li key={customer.slug}>
                   <Link
                     href={`/signup/${customer.slug}`}
-                    className="flex h-full flex-col rounded-card border border-gold-500 bg-white p-6 shadow-card transition-shadow hover:shadow-[0_6px_28px_rgb(0_0_0/0.16)]"
+                    className="flex h-full flex-col rounded-card border border-gold-500 bg-white p-6 shadow-card transition-shadow hover:shadow-[0_6px_28px_rgb(0_0_0/0.16)] md:p-8"
                   >
                     <span className="flex size-12 items-center justify-center rounded-full bg-cream-50 text-green-900">
                       <Icon className="size-6" aria-hidden />
@@ -116,7 +116,7 @@ export function OnboardingTypePage({ customer }: { customer: CustomerType }) {
 
   return (
     <main id="main">
-      <section className="bg-brand-radial py-12 text-white lg:py-16">
+      <section className="section-screen bg-brand-radial text-white">
         <div className="container-content">
           <Link
             href="/signup"
@@ -132,7 +132,7 @@ export function OnboardingTypePage({ customer }: { customer: CustomerType }) {
         </div>
       </section>
 
-      <section className="bg-white py-12 lg:py-16" aria-labelledby="onboarding-start">
+      <section className="section-screen bg-white" aria-labelledby="onboarding-start">
         <div className="container-content">
           <div className="rounded-card bg-brand-radial px-6 py-8 text-white lg:px-10 lg:py-10">
             <h2 id="onboarding-start" className="text-h3 font-bold">
@@ -164,7 +164,7 @@ export function OnboardingTypePage({ customer }: { customer: CustomerType }) {
 
       <Steps />
 
-      <section className="bg-white py-12 lg:py-16">
+      <section className="section-screen bg-white">
         <div className="container-content">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10">
             <div>

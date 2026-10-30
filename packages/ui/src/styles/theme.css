@@ -63,8 +63,9 @@
   --shadow-control: 0 2px 4px rgb(0 0 0 / 0.13);
 
   /* ---- Layout ---- */
-  --container-content: 71.75rem; /* 1148 */
-  --container-narrow: 64rem; /* 1024, "why" grid */
+  /* Wider than the original 1148px Figma frame so sections fill a desktop viewport. */
+  --container-content: 100rem;
+  --container-narrow: 84rem;
   --spacing-gutter: clamp(1rem, 4vw, 2rem); /* page side padding below 1148 */
 
   /* ---- Motion ---- */

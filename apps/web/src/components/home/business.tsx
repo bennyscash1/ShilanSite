@@ -5,14 +5,14 @@ import { business } from "@/content/home";
 
 export function Business() {
   return (
-    <section id="business" className="relative pt-8 pb-14 lg:pt-10 lg:pb-16">
+    <section id="business" className="section-screen relative">
       <div className="container-content">
         <SectionHeading tone="light">{business.title}</SectionHeading>
-        <div className="mt-6 grid gap-6 md:grid-cols-2 lg:mt-[34px] lg:gap-12">
+        <div className="mt-8 grid gap-6 md:mt-12 md:grid-cols-2 md:gap-10">
           {business.cards.map((card) => (
             <GlassCard
               key={card.id}
-              className="flex min-h-[168px] flex-col justify-center px-6 py-8 lg:min-h-[188px] lg:ps-[44px] lg:pe-8"
+              className="flex min-h-48 flex-col justify-center px-6 py-8 md:min-h-64 md:px-10 md:py-12"
             >
               <h3 className="text-display font-bold">{card.title}</h3>
               <p className="mt-1 text-body">{card.text}</p>

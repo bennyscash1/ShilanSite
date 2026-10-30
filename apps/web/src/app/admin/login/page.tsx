@@ -10,7 +10,7 @@ export default async function AdminLoginPage() {
   if (await getSession()) redirect("/admin");
 
   return (
-    <main id="main" className="container-content flex justify-center py-16">
+    <main id="main" className="container-content flex justify-center py-20 md:py-32">
       <div className="w-full max-w-md rounded-card border border-green-900/10 bg-white p-8 shadow-card">
         <h1 className="text-h3 font-bold">כניסה לניהול האתר</h1>
         {isAdminConfigured() ? (

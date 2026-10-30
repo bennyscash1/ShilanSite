@@ -5,7 +5,7 @@ import { accessibilityStatement, privacyPolicy } from "@/content/legal";
 
 function PageHero({ title, note }: { title: string; note: string }) {
   return (
-    <section className="bg-brand-radial py-12 text-white lg:py-16">
+    <section className="section-screen bg-brand-radial text-white">
       <div className="container-content">
         <SectionHeading as="h1" tone="light">
           {title}
@@ -18,7 +18,7 @@ function PageHero({ title, note }: { title: string; note: string }) {
 
 function Prose({ children }: { children: ReactNode }) {
   return (
-    <div className="bg-white py-12 lg:py-16">
+    <div className="bg-white py-16 md:py-28">
       <div className="container-content">
         <article className="max-w-3xl space-y-8 text-body leading-relaxed">{children}</article>
       </div>

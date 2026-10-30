@@ -27,7 +27,7 @@ export default async function AdminHomePage({ searchParams }: Props) {
   }
 
   return (
-    <main id="main" className="container-content py-10">
+    <main id="main" className="container-content py-16 md:py-24">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-h3 font-bold">פוסטים בבלוג</h1>
         {kind && (

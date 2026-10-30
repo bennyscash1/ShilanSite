@@ -53,7 +53,7 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <main id="main">
       <article>
-        <header className="bg-brand-radial py-12 text-white lg:py-16">
+        <header className="section-screen bg-brand-radial text-white">
           <div className="container-content max-w-4xl!">
             <nav aria-label="breadcrumb" className="text-caption">
               <ol className="flex flex-wrap gap-2 opacity-90">
@@ -79,7 +79,7 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </header>
 
-        <div className="container-content max-w-4xl! py-10 lg:py-14">
+        <div className="container-content max-w-4xl! py-16 md:py-28">
           {post.coverImage && (
             <div className="relative mb-10 aspect-[16/9] overflow-hidden rounded-card">
               <BlogImage
@@ -104,7 +104,7 @@ export default async function BlogPostPage({ params }: Props) {
       </article>
 
       {others.length > 0 && (
-        <section className="bg-cream-50 py-14">
+        <section className="section-screen bg-cream-50">
           <div className="container-content">
             <div className="flex items-baseline justify-between gap-4">
               <h2 className="text-h3 font-bold">{blogStrings.latest}</h2>

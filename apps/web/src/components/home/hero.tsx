@@ -14,7 +14,7 @@ import { uiStrings } from "@/content/ui-strings";
 
 export function Hero() {
   return (
-    <section className="relative py-12 text-white lg:pt-16 lg:pb-8">
+    <section className="section-screen relative text-white">
       <div className="container-content">
         <PillTabs defaultValue={heroTabs[0]?.id}>
           <PillTabsList aria-label={uiStrings.audienceTabs} className="gap-1.5">
