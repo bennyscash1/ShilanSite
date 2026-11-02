@@ -20,7 +20,7 @@ export type Inquiry = {
   at?: Date;
 };
 
-/** Emails the office every customer submission. Throws MailError when Resend rejects it. */
+/** Emails the office every customer submission. Throws MailError when delivery fails. */
 export async function notifyInquiry(input: Inquiry): Promise<void> {
   const at = input.at ?? new Date();
   const email = input.email?.trim() ?? "";

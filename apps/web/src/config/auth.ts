@@ -8,7 +8,7 @@ export const authConfig = {
   /** Google OAuth client (Google Cloud console > APIs & Services > Credentials). */
   googleClientId: process.env.GOOGLE_CLIENT_ID ?? "",
   googleClientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
-  /** Resend (resend.com). MAIL_FROM / CONTACT_TO_EMAIL are read in lib/mail. */
+  /** Resend fallback. Gmail SMTP, when set, is the sender used by lib/mail. */
   resendApiKey: process.env.RESEND_API_KEY ?? "",
 
   sessionCookie: "__session",

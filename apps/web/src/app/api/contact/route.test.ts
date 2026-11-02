@@ -1,11 +1,18 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const send = vi.hoisted(() => vi.fn());
+const resendSend = vi.hoisted(() => vi.fn());
+const smtpSend = vi.hoisted(() => vi.fn());
+const createTransport = vi.hoisted(() => vi.fn(() => ({ sendMail: smtpSend })));
 
 vi.mock("resend", () => ({
   Resend: class {
-    emails = { send };
+    emails = { send: resendSend };
   },
+}));
+
+vi.mock("nodemailer", () => ({
+  default: { createTransport },
+  createTransport,
 }));
 
 import { POST } from "./route";
@@ -29,19 +36,24 @@ function request(body: unknown) {
 
 describe("POST /api/contact", () => {
   beforeEach(() => {
-    send.mockReset();
+    resendSend.mockReset();
+    smtpSend.mockReset();
+    createTransport.mockClear();
+    delete process.env.GMAIL_USER;
+    delete process.env.GMAIL_APP_PASSWORD;
     process.env.RESEND_API_KEY = "re_test";
     process.env.MAIL_FROM = "Shilan <noreply@shilan.co.il>";
     process.env.CONTACT_TO_EMAIL = "nissimlevy10@gmail.com";
   });
 
   it("emails the office and does not pretend success when Resend rejects the message", async () => {
-    send.mockResolvedValueOnce({ data: { id: "email_1" }, error: null, headers: {} });
+    resendSend.mockResolvedValueOnce({ data: { id: "email_1" }, error: null, headers: {} });
     const ok = await POST(request(payload));
     expect(ok.status).toBe(200);
     expect(await ok.json()).toEqual({ ok: true });
-    expect(send).toHaveBeenCalledOnce();
-    const message = send.mock.calls[0]?.[0];
+    expect(resendSend).toHaveBeenCalledOnce();
+    expect(smtpSend).not.toHaveBeenCalled();
+    const message = resendSend.mock.calls[0]?.[0];
     expect(message.to).toEqual(["nissimlevy10@gmail.com"]);
     expect(message.subject).toBe("פנייה חדשה מהאתר – בדיקה - בני שור (לקוח פרטי)");
     expect(message.replyTo).toBeUndefined();
@@ -49,7 +61,7 @@ describe("POST /api/contact", () => {
     expect(message.html).toContain("לקוח פרטי");
     expect(message.html).not.toContain("<script>");
 
-    send.mockResolvedValueOnce({
+    resendSend.mockResolvedValueOnce({
       data: null,
       error: { message: "The domain is not verified", name: "validation_error", statusCode: 403 },
       headers: {},
@@ -62,11 +74,35 @@ describe("POST /api/contact", () => {
     });
   });
 
-  it("returns an error when the API key is missing", async () => {
+  it("returns an error when neither Gmail nor Resend is configured", async () => {
     delete process.env.RESEND_API_KEY;
     const response = await POST(request(payload));
     expect(response.status).toBe(502);
     expect(await response.json()).toMatchObject({ ok: false });
-    expect(send).not.toHaveBeenCalled();
+    expect(resendSend).not.toHaveBeenCalled();
+    expect(smtpSend).not.toHaveBeenCalled();
+  });
+
+  it("sends through Gmail SMTP when the app password is set", async () => {
+    process.env.GMAIL_USER = "site@gmail.com";
+    process.env.GMAIL_APP_PASSWORD = "abcd efgh ijkl mnop";
+    smtpSend.mockResolvedValueOnce({ messageId: "1" });
+    const ok = await POST(request(payload));
+    expect(ok.status).toBe(200);
+    expect(resendSend).not.toHaveBeenCalled();
+    expect(createTransport).toHaveBeenCalledWith({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: { user: "site@gmail.com", pass: "abcdefghijklmnop" },
+    });
+    expect(smtpSend).toHaveBeenCalledWith(
+      expect.objectContaining({
+        from: '"אתר שילן" <site@gmail.com>',
+        to: ["nissimlevy10@gmail.com"],
+        subject: "פנייה חדשה מהאתר – בדיקה - בני שור (לקוח פרטי)",
+      }),
+    );
+    expect(smtpSend.mock.calls[0]?.[0].replyTo).toBeUndefined();
   });
 });
