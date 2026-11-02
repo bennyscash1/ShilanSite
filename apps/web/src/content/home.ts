@@ -165,4 +165,7 @@ export const contactForm = {
   consentPrefix: "בשליחה אני מאשר/ת את ",
   consentLink: "מדיניות הפרטיות",
   submit: "נהיה בקשר!",
+  sending: "שולח...",
+  success: "הפנייה נשלחה. נחזור אליכם בהקדם.",
+  error: "לא הצלחנו לשלוח את הפנייה. נסו שוב בעוד רגע.",
 };

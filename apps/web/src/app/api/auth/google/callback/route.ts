@@ -3,6 +3,7 @@ import { authConfig, isGoogleConfigured } from "@/config/auth";
 import { signInWithGoogleIdToken } from "@/lib/auth/identity";
 import { isAuthConfigured, safeNext, startSession } from "@/lib/auth/session";
 import { ensureGoogleProfile } from "@/lib/auth/users";
+import { notifyInquiry } from "@/lib/mail/notify";
 import { OAUTH_COOKIE } from "@/lib/auth/oauth";
 
 /** Google redirects here after consent: code -> Google ID token -> Firebase user -> session cookie. */
@@ -45,12 +46,25 @@ export async function GET(req: NextRequest) {
     if (!tokenRes.ok || !tokens.id_token) throw new Error(`Google token exchange failed: ${tokens.error}`);
 
     const result = await signInWithGoogleIdToken(tokens.id_token, redirectUri);
-    const name = await ensureGoogleProfile(
+    const profile = await ensureGoogleProfile(
       result.localId,
       result.email,
       result.displayName || result.fullName || result.email.split("@")[0] || "",
     );
-    await startSession(result.idToken, name);
+    await startSession(result.idToken, profile.displayName);
+    if (profile.created) {
+      try {
+        await notifyInquiry({
+          name: profile.displayName,
+          email: result.email,
+          customerType: "הרשמה",
+          message: "נרשם חשבון חדש דרך גוגל.",
+          pageUrl: `${origin}/register`,
+        });
+      } catch (error) {
+        console.error("[mail] Google registration notice failed", error);
+      }
+    }
   } catch (error) {
     console.error("[auth] Google sign-in failed", error);
     return fail("google");

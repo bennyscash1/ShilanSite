@@ -69,11 +69,17 @@ export async function createPasswordAccount(input: {
 }
 
 /** Creates the profile on first Google sign-in (Google accounts have no username). */
-export async function ensureGoogleProfile(uid: string, email: string, displayName: string): Promise<string> {
+export async function ensureGoogleProfile(
+  uid: string,
+  email: string,
+  displayName: string,
+): Promise<{ displayName: string; created: boolean }> {
   const db = await adminDb();
   const ref = db.collection(COLLECTIONS.users).doc(uid);
   const snap = await ref.get();
-  if (snap.exists) return (snap.data() as UserProfile).displayName || displayName;
+  if (snap.exists) {
+    return { displayName: (snap.data() as UserProfile).displayName || displayName, created: false };
+  }
   const profile: UserProfile = {
     uid,
     username: null,
@@ -83,7 +89,7 @@ export async function ensureGoogleProfile(uid: string, email: string, displayNam
     createdAt: new Date().toISOString(),
   };
   await ref.set(profile);
-  return displayName;
+  return { displayName, created: true };
 }
 
 /**

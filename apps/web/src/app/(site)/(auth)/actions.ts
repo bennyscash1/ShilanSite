@@ -4,7 +4,9 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { authConfig } from "@/config/auth";
-import { sendPasswordResetEmail } from "@/lib/auth/email";
+import { signupKindLabel } from "@/lib/leads/parse";
+import { notifyInquiry, sendPasswordResetEmail } from "@/lib/mail/notify";
+import { MailError } from "@/lib/mail/send";
 import { IdentityError, confirmPasswordReset, signInWithPassword } from "@/lib/auth/identity";
 import { endSession, isAuthConfigured, safeNext, startSession } from "@/lib/auth/session";
 import {
@@ -125,6 +127,18 @@ export async function registerAction(_prev: RegisterState, formData: FormData): 
   const data = parsed.data;
   try {
     await createPasswordAccount(data);
+    try {
+      const { origin } = await requestInfo();
+      await notifyInquiry({
+        name: data.displayName,
+        email: data.email,
+        customerType: signupKindLabel(next),
+        message: `נרשם חשבון חדש באתר.\nשם משתמש: ${data.username}`,
+        pageUrl: `${origin}/register`,
+      });
+    } catch (error) {
+      console.error("[mail] registration notice failed", error);
+    }
     const result = await signInWithPassword(data.email, data.password);
     await startSession(result.idToken, data.displayName);
   } catch (error) {
@@ -164,6 +178,7 @@ export async function forgotPasswordAction(_prev: ForgotState, formData: FormDat
     }
   } catch (error) {
     console.error("[auth] Password reset email failed", error);
+    if (error instanceof MailError) return { error: error.message, identifier };
     return { error: GENERIC, identifier };
   }
   // Same answer whether or not the account exists (no account enumeration).
