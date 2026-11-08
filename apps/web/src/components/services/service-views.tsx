@@ -1,11 +1,8 @@
-import { Button } from "@shilan/ui/components/button";
 import { SectionHeading } from "@shilan/ui/components/section-heading";
-import { ClockIcon, MessagesSquareIcon, ShieldCheckIcon } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import { CheckDiscountingIcon } from "@/components/icons/figma-icons";
 import { currencies } from "@/content/service-pages";
 import { AudienceCards, CallVip, FeatureRow, PhotoHero } from "./service-blocks";
+import { CheckInquiryForm } from "./check-form";
 
 export function FxExchangeView() {
   return (
@@ -44,21 +41,23 @@ export function FxExchangeView() {
       <section className="section-screen bg-white">
         <div className="container-content">
           <h2 className="text-center text-h2 font-bold text-green-900">מגוון מטבעות, מגוון יעדים</h2>
-          <ul className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 lg:gap-4">
+          <ul className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 lg:gap-x-6 lg:gap-y-8">
             {currencies.map((item) => (
               <li
-                key={`${item.name}-${item.place}`}
-                className="flex flex-col items-center rounded-card border border-gold-500 bg-white px-2 py-4 text-center"
+                key={`${item.name}-${item.place}-${item.flag}`}
+                className="flex flex-col items-center text-center"
               >
-                <Image
-                  src={item.flag}
-                  alt=""
-                  width={48}
-                  height={36}
-                  className="h-8 w-12 object-contain"
-                />
-                <p className="mt-2 text-body font-bold text-green-900">{item.name}</p>
-                <p className="text-caption">{item.place}</p>
+                <div className="flex aspect-square w-full items-center justify-center rounded-card border border-gold-500/50 bg-white p-[18%]">
+                  <Image
+                    src={item.flag}
+                    alt=""
+                    width={55}
+                    height={55}
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+                <p className="mt-2 text-caption text-gold-700">{item.name}</p>
+                {item.place ? <p className="text-caption font-bold text-gold-700">{item.place}</p> : null}
               </li>
             ))}
           </ul>
@@ -292,14 +291,22 @@ export function PrepaidView() {
           <p className="text-title font-bold text-green-900">
             עם האפליקציה הנלווית לכרטיס תוכלו לנהל את השימוש בו בצורה פשוטה ונוחה:
           </p>
-          <ul className="mx-auto mt-8 grid max-w-3xl gap-4 text-start sm:grid-cols-2">
-            <li className="rounded-card border border-gold-500 bg-white p-6">
+          <ul className="mt-8 grid gap-6 md:grid-cols-3 md:gap-8">
+            <li className="rounded-card border border-gold-500 bg-white px-5 py-6 text-center md:aspect-[319/207]">
+              <h3 className="text-title font-bold text-green-900">בדיקת יתרה:</h3>
+              <p className="mt-2 text-body">צפייה בסכום שנותר בכרטיס וזמין לשימוש.</p>
+            </li>
+            <li className="rounded-card border border-gold-500 bg-white px-5 py-6 text-center md:aspect-[319/207]">
               <h3 className="text-title font-bold text-green-900">טעינת הכרטיס:</h3>
               <p className="mt-2 text-body">הוספת כסף בהתאם לאפשרויות הטעינה הזמינות.</p>
             </li>
-            <li className="rounded-card border border-gold-500 bg-white p-6">
-              <h3 className="text-title font-bold text-green-900">בדיקת יתרה:</h3>
-              <p className="mt-2 text-body">צפייה בסכום שנותר בכרטיס וזמין לשימוש.</p>
+            <li className="rounded-card border border-gold-500 bg-white px-5 py-6 text-center md:aspect-[319/207]">
+              <h3 className="text-title font-bold text-green-900">מעקב</h3>
+              <p className="mt-2 text-body">
+                היסטורית פעילות
+                <br />
+                בכרטיס
+              </p>
             </li>
           </ul>
           <p className="mx-auto mt-10 max-w-3xl text-body leading-relaxed">
@@ -347,6 +354,9 @@ export function BusinessFxView() {
 
       <section id="importers" className="section-screen bg-white">
         <div className="container-content grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+          <div className="relative aspect-[330/452] overflow-hidden rounded-card border-2 border-gold-500">
+            <Image src="/services/business/importers.png" alt="" fill className="object-cover" sizes="(min-width: 1024px) 330px, 100vw" />
+          </div>
           <div>
             <p className="text-title font-bold text-gold-700">יבואנים</p>
             <h2 className="mt-2 text-h2 font-bold text-green-900">רוכשים מט״ח לעסק</h2>
@@ -357,17 +367,11 @@ export function BusinessFxView() {
               <p>רוכשים מט״ח לצורך תשלום לספקים בחו״ל? חדר העסקאות VIP של שילן עומד לרשותכם.</p>
             </div>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-card">
-            <Image src="/services/business/import.jpg" alt="" fill className="object-cover" sizes="(min-width: 1024px) 40vw, 100vw" />
-          </div>
         </div>
       </section>
 
       <section id="exporters" className="section-screen bg-cream-50">
         <div className="container-content grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-card lg:order-first">
-            <Image src="/services/business/export.jpg" alt="" fill className="object-cover" sizes="(min-width: 1024px) 40vw, 100vw" />
-          </div>
           <div>
             <p className="text-title font-bold text-gold-700">יצואנים</p>
             <h2 className="mt-2 text-h2 font-bold text-green-900">מהכנסות במט״ח לתמורה בשקלים</h2>
@@ -387,6 +391,15 @@ export function BusinessFxView() {
               <p>מקבלים תשלומים במטבע חוץ? פנו לחדר העסקאות VIP של שילן לבירור תנאי ההמרה.</p>
             </div>
           </div>
+          <div className="relative aspect-[330/452] overflow-hidden rounded-card border-2 border-gold-500">
+            <Image
+              src="/services/business/exporters.png"
+              alt=""
+              fill
+              className="object-cover object-[35%_center]"
+              sizes="(min-width: 1024px) 330px, 100vw"
+            />
+          </div>
         </div>
       </section>
 
@@ -395,131 +408,70 @@ export function BusinessFxView() {
   );
 }
 
-const checkSteps = [
-  {
-    title: "פונים אלינו",
-    text: "משאירים פרטים ומתארים בקצרה את הצורך: שיק דחוי, ומימון עד למועד הפירעון.",
-  },
-  {
-    title: "מעבירים את מה שנבקש",
-    text: "כדי לבדוק את הפנייה נבקש פרטים על השיק ועל הפעילות. בלי זה אי אפשר לדעת אם יש מסלול מתאים.",
-  },
-  {
-    title: "מקבלים תשובה",
-    text: "אם אפשר להתקדם, נסביר מה השלב הבא. אם לא, נאמר זאת. אין התחייבות מראש שהשירות יינתן.",
-  },
-];
-
-const checkAudiences = [
-  {
-    title: "שיקים דחויים מלקוחות",
-    text: "עסקים שמקבלים שיקים שמועד הפירעון שלהם עדיין לא הגיע.",
-  },
-  {
-    title: "צורך במימון עד הפירעון",
-    text: "כשהתשלום קבוע למועד מאוחר יותר, והעסק בודק אפשרות למימון בינתיים.",
-  },
-  {
-    title: "מסלול חוץ בנקאי",
-    text: "מי שבוחן אפשרות נוספת לצד הבנק. כל פנייה נבדקת, ואין הבטחה מראש.",
-  },
-];
-
-const checkQuestions = [
-  {
-    q: "מה זה נכיון שיקים?",
-    a: "שיק דחוי הוא התחייבות לתשלום במועד עתידי. נכיון שיקים הוא בירור האפשרות לקבל מימון כנגד השיק לפני מועד הפירעון. כל פנייה נבדקת לגופה.",
-  },
-  {
-    q: "האם כל שיק מתאים?",
-    a: "לא. פרטי השיק, הצדדים והנסיבות נבדקים. רק אחרי הבדיקה אפשר לדעת אם יש מסלול מתאים.",
-  },
-  {
-    q: "למי זה מיועד?",
-    a: "לעסקים שמקבלים שיקים דחויים ושוקלים מימון חוץ בנקאי עד למועד הפירעון.",
-  },
-  {
-    q: "איך מתחילים?",
-    a: "משאירים פרטים ביצירת קשר. נחזור אליכם כדי להבין את הצורך ומה נדרש להמשך.",
-  },
-];
-
 export function CheckDiscountingView() {
   return (
     <main id="main">
       <PhotoHero image="/services/checks/hero.jpg" imageAlt="">
         <SectionHeading as="h1" tone="light">
-          נכיון שיקים
+          נכיון שיקים מסחריים
         </SectionHeading>
-        <p className="mt-4 max-w-3xl text-lead">
-          לעסקים שמקבלים שיקים דחויים וצריכים מימון חוץ בנקאי
+        <p className="mt-4 max-w-xl text-body leading-relaxed">
+          ניהול תזרים המזומנים הוא אחד האתגרים המרכזיים בניהול עסק. כאשר תשלומים מתקבלים בשיקים
+          דחויים, נוצר לעיתים פער בין מועד קבלת התשלום לבין מועד פירעון ההתחייבויות מול ספקים
+          ולקוחות.
         </p>
-        <p className="mt-4 max-w-3xl text-body leading-relaxed">
-          אפשר לפנות אלינו כדי לבדוק אם יש מסלול למימון כנגד שיק דחוי, לפני מועד הפירעון. הפנייה
-          אינה התחייבות: כל מקרה נבחן לפי הפרטים שיועברו.
+        <p className="mt-3 max-w-xl text-body leading-relaxed">
+          בשילן שירותי המרה בע״מ אנו מציעים שירות ניכיון שיקים מסחריים, המאפשר לעסקים לקבל את תמורת
+          השיקים לפני מועד פירעונם, ולשפר את הגמישות בניהול תזרים המזומנים
         </p>
-        <ul className="mt-10 grid gap-8 sm:grid-cols-3 md:mt-14">
-          {[
-            { icon: CheckDiscountingIcon, title: "שיקים דחויים", text: "מימון לפני מועד הפירעון" },
-            { icon: ShieldCheckIcon, title: "בדיקה אישית", text: "כל פנייה נבחנת לגופה" },
-            { icon: ClockIcon, title: "בלי התחייבות מראש", text: "קודם מבינים, אחר כך מחליטים" },
-          ].map((item) => (
-            <li key={item.title} className="flex flex-col items-center text-center">
-              <item.icon className="size-12 text-white" aria-hidden />
-              <p className="mt-4 text-title font-bold">{item.title}</p>
-              <p className="text-body">{item.text}</p>
-            </li>
-          ))}
-        </ul>
       </PhotoHero>
-
-      <section className="section-screen bg-white">
-        <div className="container-content">
-          <h2 className="text-center text-h2 font-bold text-green-900">איך זה עובד</h2>
-          <ol className="mt-10 grid gap-5 md:grid-cols-3">
-            {checkSteps.map((step, index) => (
-              <li key={step.title} className="rounded-card border border-gold-500 px-6 py-8">
-                <span className="text-display font-bold text-gold-500" aria-hidden>
-                  {index + 1}
-                </span>
-                <h3 className="mt-3 text-title font-bold text-green-900">{step.title}</h3>
-                <p className="mt-2 text-body leading-relaxed">{step.text}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
 
       <section className="section-screen bg-green-900 text-white">
         <div className="container-content">
-          <AudienceCards title="למי זה מתאים" cards={checkAudiences} />
+          <h2 className="text-h2 font-bold">למה כדאי לבצע ניכיון שיקים מסחריים?</h2>
+          <p className="mt-4 max-w-3xl text-body leading-relaxed">
+            קבלת תשלומים בשיקים דחויים היא חלק משגרת העבודה של עסקים רבים, אך ההמתנה לפירעונם עלולה
+            ליצור פערים בתזרים המזומנים. באמצעות ניכיון שיקים ניתן להקדים את קבלת הכספים ולהתאים את
+            זמינות המזומנים לצורכי העסק.
+          </p>
+          <p className="mt-6 text-title font-bold">היתרונות המרכזיים של ניכיון שיקים:</p>
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                title: "שיפור תזרים המזומנים",
+                text: "הקדמת קבלת הכספים משיקים דחויים, בלי להמתין למועד פירעונם",
+              },
+              {
+                title: "עמידה בהתחייבויות",
+                text: "גמישות רבה יותר בתכנון תשלומים לספקים ובהתנהלות מול גורמים עסקיים.",
+              },
+              {
+                title: "גמישות בניהול העסק",
+                text: "אפשרות לנצל כספים שהתקבלו מוקדם יותר בהתאם לצרכים העסקיים.",
+              },
+              {
+                title: "תכנון פיננסי יעיל",
+                text: "צמצום הפער בין מועדי קבלת התשלומים לבין מועדי ההוצאות השוטפות.",
+              },
+            ].map((card) => (
+              <li key={card.title} className="rounded-card bg-white/20 px-5 py-6">
+                <h3 className="text-body font-bold text-green-900">{card.title}</h3>
+                <p className="mt-2 text-body leading-relaxed">{card.text}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <section className="section-screen bg-cream-50">
+      <section className="section-screen bg-white">
         <div className="container-content">
-          <h2 className="text-center text-h2 font-bold text-green-900">שאלות לפני שפונים</h2>
-          <dl className="mx-auto mt-10 max-w-3xl space-y-4">
-            {checkQuestions.map((item) => (
-              <div key={item.q} className="rounded-card border border-gold-500 bg-white px-6 py-5">
-                <dt className="text-title font-bold text-green-900">{item.q}</dt>
-                <dd className="mt-2 text-body leading-relaxed">{item.a}</dd>
-              </div>
-            ))}
-          </dl>
-          <div className="mt-12 text-center">
-            <p className="text-title font-bold text-green-900">נשמח לבדוק את הפנייה</p>
-            <p className="mx-auto mt-3 max-w-2xl text-body leading-relaxed">
-              השאירו פרטים ונחזור אליכם. השיחה היא לבירור בלבד, בלי התחייבות ובלי הבטחה שהשירות
-              יינתן.
-            </p>
-            <Button asChild className="mt-6">
-              <Link href="/#contact">
-                <MessagesSquareIcon className="size-4" aria-hidden />
-                ליצירת קשר
-              </Link>
-            </Button>
-          </div>
+          <CheckInquiryForm />
+          <p className="mx-auto mt-8 max-w-4xl text-body leading-relaxed text-green-900">
+            <span className="font-bold">חשוב לדעת: </span>
+            כל פנייה וכל בקשה לניכיון שיקים נבחנת באופן פרטני, בהתאם לנתוני העסק, מאפייני השיקים
+            ושיקולים מקצועיים נוספים. עצם הפנייה או הגשת הבקשה אינן מהוות התחייבות מצד שילן שירותי
+            המרה בע״מ למתן השירות. מתן השירות כפוף לבדיקת הנתונים ולאישור החברה.
+          </p>
         </div>
       </section>
     </main>

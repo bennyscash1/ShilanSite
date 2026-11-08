@@ -1,54 +1,54 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Fragment, type ReactNode } from "react";
 import { branches, contact, footer, socialLinks, type Branch, type NavLink } from "@/content/site";
 import { ContactForm } from "./contact-form";
 
-function Fact({ children }: { children: ReactNode }) {
-  return <p className="whitespace-nowrap">{children}</p>;
+function BranchColumn({ branch }: { branch: Branch }) {
+  return (
+    <li>
+      <h3 className="text-title font-bold">{branch.name}</h3>
+      {branch.lines.map((line) => (
+        <p key={line} className="text-[1.375rem] leading-normal">
+          {line}
+        </p>
+      ))}
+    </li>
+  );
 }
 
-function BranchCard({ branch }: { branch: Branch }) {
+function SocialIcon({ href, label, offset }: { href: string; label: string; offset: number }) {
   return (
-    <li className="flex h-full min-w-0 flex-col rounded-card border border-white/80 bg-white/10 p-5 text-link leading-normal md:p-8">
-      <h3 className="text-title font-bold lg:min-h-14">{branch.name}</h3>
-      <div className="mt-2 lg:min-h-24">
-        {branch.lines.map((line) => (
-          <p key={line}>{line}</p>
-        ))}
-      </div>
-      <div className="mt-4 space-y-1">
-        {branch.hours.map((part) => (
-          <Fact key={part.label}>
-            {part.label} <span dir="ltr">{part.value}</span>
-          </Fact>
-        ))}
-        <Fact>
-          {footer.phoneLabel}{" "}
-          <a href={`tel:${branch.phone}`} className="hover:underline" dir="ltr">
-            {branch.phone}
-          </a>{" "}
-          ({branch.extension})
-        </Fact>
-        <Fact>
-          {footer.faxLabel} <span dir="ltr">{branch.fax}</span>
-        </Fact>
-        <Fact>
-          {footer.emailLabel}{" "}
-          <a href={`mailto:${branch.email}`} className="hover:underline">
-            {branch.email}
-          </a>
-        </Fact>
-      </div>
-      <div className="mt-auto pt-5">
-        <iframe
-          src={branch.map.src}
-          title={branch.map.title}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          className="h-44 w-full rounded-control border-0 md:h-56"
-        />
-      </div>
-    </li>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      className="relative block h-8 w-8 overflow-hidden"
+    >
+      <Image
+        src="/icons/social-pair.svg"
+        alt=""
+        width={67}
+        height={32}
+        unoptimized
+        className="absolute top-0 h-8 max-w-none"
+        style={{ width: 67, left: offset }}
+      />
+      <span className="sr-only"> נפתח בחלון חדש</span>
+    </a>
+  );
+}
+
+function SocialPair() {
+  const instagram = socialLinks.find((link) => link.label === "Instagram");
+  const facebook = socialLinks.find((link) => link.label === "Facebook");
+  if (!instagram || !facebook) return null;
+  return (
+    <div className="mt-4 flex w-[67px]" dir="ltr">
+      <SocialIcon href={instagram.href} label={instagram.label} offset={0} />
+      <SocialIcon href={facebook.href} label={facebook.label} offset={-35} />
+    </div>
   );
 }
 
@@ -129,19 +129,7 @@ export function SiteFooter() {
                     </ExternalLink>
                   </li>
                 </ul>
-                <h3 className="mt-5 text-title font-bold">{footer.socialTitle}</h3>
-                <ul className="mt-1 text-link">
-                  {socialLinks.map((link) => (
-                    <li key={link.href}>
-                      <ExternalLink
-                        href={link.href}
-                        className="inline-block py-0.5 hover:underline"
-                      >
-                        {link.label}
-                      </ExternalLink>
-                    </li>
-                  ))}
-                </ul>
+                <SocialPair />
               </div>
             </div>
           </div>
@@ -155,10 +143,9 @@ export function SiteFooter() {
           <h2 id="branches-heading" className="text-h2 font-bold">
             {footer.branchesTitle}
           </h2>
-          <p className="mt-4 max-w-3xl text-link">{footer.branchesIntro}</p>
-          <ul className="mt-8 grid grid-cols-1 items-stretch gap-5 md:mt-12 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
+          <ul className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-3">
             {branches.map((branch) => (
-              <BranchCard key={branch.name} branch={branch} />
+              <BranchColumn key={branch.name} branch={branch} />
             ))}
           </ul>
         </section>

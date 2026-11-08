@@ -5,12 +5,24 @@
 
 export type NavLink = { label: string; href: string };
 
+export type NavItem = { label: string; href?: string; children?: NavLink[] };
+
+/** Service pages reached from the header. Same names and order as the homepage section. */
+export const serviceNav: NavLink[] = [
+  { label: "מט”ח לעסקים", href: "/business" },
+  { label: "המרת מט”ח", href: "/services/fx-exchange" },
+  { label: "העברות בינלאומיות", href: "/services/international-transfers" },
+  { label: "מט”ח באשראי", href: "/services/fx-credit" },
+  { label: "כרטיס אשראי נטען", href: "/services/prepaid-card" },
+  { label: "נכיון שיקים", href: "/services/check-discounting" },
+];
+
 // The top bar has a single account link ("כניסת לקוחות" / "האזור האישי"),
 // rendered by components/layout/account-link.tsx. Customer onboarding (/signup) is for registered users.
 
-export const mainNav: NavLink[] = [
+export const mainNav: NavItem[] = [
   { label: "אודותינו", href: "/about" },
-  { label: "השירותים שלנו", href: "/#services" },
+  { label: "השירותים שלנו", children: serviceNav },
   { label: "בלוג", href: "/blog" },
   { label: "יצירת קשר", href: "/#contact" },
 ];

@@ -4,6 +4,7 @@ import { headerCta, mainNav } from "@/content/site";
 import { uiStrings } from "@/content/ui-strings";
 import { Logo } from "./logo";
 import { MobileMenu } from "./mobile-menu";
+import { ServicesMenu } from "./services-menu";
 import { TopBar } from "./top-bar";
 
 export function SiteHeader() {
@@ -17,10 +18,14 @@ export function SiteHeader() {
           <nav aria-label={uiStrings.mainNav} className="hidden lg:block">
             <ul className="flex items-center gap-8 text-body">
               {mainNav.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="py-2 hover:underline">
-                    {link.label}
-                  </Link>
+                <li key={link.label}>
+                  {link.children?.length ? (
+                    <ServicesMenu label={link.label} items={link.children} />
+                  ) : (
+                    <Link href={link.href ?? "/"} className="py-2 hover:underline">
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

@@ -1,5 +1,5 @@
 import { contactRecipients } from "./config";
-import { sendMail } from "./send";
+import { sendMail, type MailAttachment } from "./send";
 import {
   formatJerusalem,
   inquirySubject,
@@ -18,6 +18,7 @@ export type Inquiry = {
   message: string;
   pageUrl?: string;
   at?: Date;
+  attachments?: MailAttachment[];
 };
 
 /** Emails the office every customer submission. Throws MailError when delivery fails. */
@@ -43,6 +44,7 @@ export async function notifyInquiry(input: Inquiry): Promise<void> {
     html: rendered.html,
     text: rendered.text,
     replyTo: replyAddress(email),
+    attachments: input.attachments,
   });
 }
 

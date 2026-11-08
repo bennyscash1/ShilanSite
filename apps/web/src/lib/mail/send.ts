@@ -9,12 +9,15 @@ export class MailError extends Error {
   }
 }
 
+export type MailAttachment = { filename: string; content: Buffer; contentType: string };
+
 export type OutboundMail = {
   to: string[];
   subject: string;
   html: string;
   text: string;
   replyTo?: string;
+  attachments?: MailAttachment[];
 };
 
 /** Gmail SMTP when both vars are set; otherwise Resend. One helper for every site email. */
@@ -63,6 +66,7 @@ async function sendViaGmail(auth: { user: string; pass: string }, input: Outboun
       html: input.html,
       text: input.text,
       ...(input.replyTo ? { replyTo: input.replyTo } : {}),
+      ...(input.attachments?.length ? { attachments: input.attachments } : {}),
     });
   } catch (error) {
     logFailure("[mail] Gmail SMTP failed", error);
@@ -86,6 +90,15 @@ async function sendViaResend(input: OutboundMail): Promise<void> {
       html: input.html,
       text: input.text,
       ...(input.replyTo ? { replyTo: input.replyTo } : {}),
+      ...(input.attachments?.length
+        ? {
+            attachments: input.attachments.map((file) => ({
+              filename: file.filename,
+              content: file.content,
+              contentType: file.contentType,
+            })),
+          }
+        : {}),
     });
     if (error) {
       console.error("[mail] Resend error", {
