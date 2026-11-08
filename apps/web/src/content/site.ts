@@ -133,6 +133,7 @@ export const footer = {
   company: [
     { label: "אודותינו", href: "/about" },
     { label: "בלוג", href: "/blog" },
+    { label: "הקמת לקוח", href: "/signup" },
     { label: "כניסת לקוחות", href: "/login" },
   ] satisfies NavLink[],
   contactTitle: "יצירת קשר",
