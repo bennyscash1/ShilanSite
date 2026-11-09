@@ -81,3 +81,24 @@
     }
   }
 }
+
+/*
+ * Scroll reveal. Text stays visible unless JS has marked it pending, so a failed
+ * script or a reduced-motion preference never leaves content hidden.
+ * Opacity and translate do not affect layout.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html.js-scroll-reveal .scroll-reveal-pending {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  html.js-scroll-reveal .scroll-reveal-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition-property: opacity, transform;
+    transition-duration: 0.65s;
+    transition-timing-function: ease-out;
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+}
