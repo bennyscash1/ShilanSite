@@ -16,6 +16,7 @@ export function HeroBackdrop() {
         fill
         preload
         placeholder="blur"
+        quality={90}
         sizes="100vw"
         className="object-cover object-[22%_30%]"
       />
