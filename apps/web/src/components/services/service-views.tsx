@@ -1,5 +1,6 @@
 import { SectionHeading } from "@shilan/ui/components/section-heading";
 import Image from "next/image";
+import { FixedBackdrop } from "@/components/layout/fixed-backdrop";
 import { currencies } from "@/content/service-pages";
 import { AudienceCards, CallVip, FeatureRow, PhotoHero } from "./service-blocks";
 import { CheckInquiryForm } from "./check-form";
@@ -152,40 +153,47 @@ export function TransfersView() {
 export function FxCreditView() {
   return (
     <main id="main">
-      <PhotoHero image="/services/fx-credit/hero.jpg" imageAlt="">
-        <SectionHeading as="h1" tone="light">
-          רכישת מט״ח בכרטיס אשראי,
-          <br />
-          עד 12 תשלומים
-        </SectionHeading>
-        <p className="mt-5 max-w-3xl text-body leading-relaxed">
-          השירות מאפשר לכם לרכוש את המטבע הדרוש לכם וליהנות מגמישות באופן התשלום, ללא צורך הבגעה
-          לסניף.
-        </p>
-        <div className="mt-12">
-          <AudienceCards
-            title="למי מתאימה רכישת מט״ח בכרטיס אשראי?"
-            cards={[
-              {
-                title: "לקראת נסיעה לחו״ל",
-                text: "רכישת מטבע חוץ לצורך חופשה, נסיעת עסקים או שהייה ממושכת בחו״ל.",
-              },
-              {
-                title: "סטודנטים",
-                text: "תשלום הוצאות מחיה, שכר דירה ושכר לימוד במדינה אחרת.",
-              },
-              {
-                title: "תשלומים עסקיים",
-                text: "רכישת מטבע חוץ לצורך תשלום לספקים בחו״ל והוצאות הקשורות לפעילות העסקית.",
-              },
-              {
-                title: "תשלומים והתחייבויות",
-                text: "רכישת המטבע הדרוש לביצוע תשלומים עבור שירותים, רכישות והתחייבויות שונות בחו״ל.",
-              },
-            ]}
-          />
+      <FixedBackdrop
+        src="/services/fx-credit/hero.jpg"
+        quality={90}
+        overlayClassName="bg-green-950/60"
+      />
+      <section className="section-screen relative text-white">
+        <div className="container-content">
+          <SectionHeading as="h1" tone="light">
+            רכישת מט״ח בכרטיס אשראי,
+            <br />
+            עד 12 תשלומים
+          </SectionHeading>
+          <p className="mt-5 max-w-3xl text-body leading-relaxed">
+            השירות מאפשר לכם לרכוש את המטבע הדרוש לכם וליהנות מגמישות באופן התשלום, ללא צורך הבגעה
+            לסניף.
+          </p>
+          <div className="mt-12">
+            <AudienceCards
+              title="למי מתאימה רכישת מט״ח בכרטיס אשראי?"
+              cards={[
+                {
+                  title: "לקראת נסיעה לחו״ל",
+                  text: "רכישת מטבע חוץ לצורך חופשה, נסיעת עסקים או שהייה ממושכת בחו״ל.",
+                },
+                {
+                  title: "סטודנטים",
+                  text: "תשלום הוצאות מחיה, שכר דירה ושכר לימוד במדינה אחרת.",
+                },
+                {
+                  title: "תשלומים עסקיים",
+                  text: "רכישת מטבע חוץ לצורך תשלום לספקים בחו״ל והוצאות הקשורות לפעילות העסקית.",
+                },
+                {
+                  title: "תשלומים והתחייבויות",
+                  text: "רכישת המטבע הדרוש לביצוע תשלומים עבור שירותים, רכישות והתחייבויות שונות בחו״ל.",
+                },
+              ]}
+            />
+          </div>
         </div>
-      </PhotoHero>
+      </section>
 
       <section className="section-screen bg-white text-center text-green-900">
         <div className="container-content">
