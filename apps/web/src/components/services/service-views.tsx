@@ -1,5 +1,6 @@
 import { SectionHeading } from "@shilan/ui/components/section-heading";
 import Image from "next/image";
+import checksBg from "@/assets/images/checks-bg.jpg";
 import { FixedBackdrop } from "@/components/layout/fixed-backdrop";
 import { currencies } from "@/content/service-pages";
 import { AudienceCards, CallVip, FeatureRow, PhotoHero } from "./service-blocks";
@@ -419,31 +420,38 @@ export function BusinessFxView() {
 export function CheckDiscountingView() {
   return (
     <main id="main">
-      <PhotoHero image="/services/checks/hero.jpg" imageAlt="">
-        <SectionHeading as="h1" tone="light">
-          נכיון שיקים מסחריים
-        </SectionHeading>
-        <p className="mt-4 max-w-xl text-body leading-relaxed">
-          ניהול תזרים המזומנים הוא אחד האתגרים המרכזיים בניהול עסק. כאשר תשלומים מתקבלים בשיקים
-          דחויים, נוצר לעיתים פער בין מועד קבלת התשלום לבין מועד פירעון ההתחייבויות מול ספקים
-          ולקוחות.
-        </p>
-        <p className="mt-3 max-w-xl text-body leading-relaxed">
-          בשילן שירותי המרה בע״מ אנו מציעים שירות ניכיון שיקים מסחריים, המאפשר לעסקים לקבל את תמורת
-          השיקים לפני מועד פירעונם, ולשפר את הגמישות בניהול תזרים המזומנים
-        </p>
-      </PhotoHero>
-
-      <section className="section-screen bg-green-900 text-white">
+      <FixedBackdrop
+        src={checksBg}
+        imageClassName="object-cover max-lg:object-[18%_center] lg:object-left"
+        quality={90}
+      />
+      <section className="section-screen relative text-white">
         <div className="container-content">
-          <h2 className="text-h2 font-bold">למה כדאי לבצע ניכיון שיקים מסחריים?</h2>
-          <p className="mt-4 max-w-3xl text-body leading-relaxed">
-            קבלת תשלומים בשיקים דחויים היא חלק משגרת העבודה של עסקים רבים, אך ההמתנה לפירעונם עלולה
-            ליצור פערים בתזרים המזומנים. באמצעות ניכיון שיקים ניתן להקדים את קבלת הכספים ולהתאים את
-            זמינות המזומנים לצורכי העסק.
-          </p>
-          <p className="mt-6 text-title font-bold">היתרונות המרכזיים של ניכיון שיקים:</p>
-          <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="me-auto w-full max-w-xl lg:max-w-2xl">
+            <SectionHeading as="h1" tone="light">
+              נכיון שיקים מסחריים
+            </SectionHeading>
+            <p className="mt-4 text-body leading-relaxed">
+              ניהול תזרים המזומנים הוא אחד האתגרים המרכזיים בניהול עסק. כאשר תשלומים מתקבלים בשיקים
+              דחויים, נוצר לעיתים פער בין מועד קבלת התשלום לבין מועד פירעון ההתחייבויות מול ספקים
+              ולקוחות.
+            </p>
+            <p className="mt-3 text-body leading-relaxed">
+              בשילן שירותי המרה בע״מ אנו מציעים שירות ניכיון שיקים מסחריים, המאפשר לעסקים לקבל את תמורת
+              השיקים לפני מועד פירעונם, ולשפר את הגמישות בניהול תזרים המזומנים
+            </p>
+          </div>
+
+          <div className="me-auto mt-16 w-full max-w-3xl lg:mt-24">
+            <h2 className="text-h2 font-bold">למה כדאי לבצע ניכיון שיקים מסחריים?</h2>
+            <p className="mt-4 text-body leading-relaxed">
+              קבלת תשלומים בשיקים דחויים היא חלק משגרת העבודה של עסקים רבים, אך ההמתנה לפירעונם עלולה
+              ליצור פערים בתזרים המזומנים. באמצעות ניכיון שיקים ניתן להקדים את קבלת הכספים ולהתאים את
+              זמינות המזומנים לצורכי העסק.
+            </p>
+            <p className="mt-6 text-title font-bold">היתרונות המרכזיים של ניכיון שיקים:</p>
+          </div>
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:pe-[38%]">
             {[
               {
                 title: "שיפור תזרים המזומנים",
