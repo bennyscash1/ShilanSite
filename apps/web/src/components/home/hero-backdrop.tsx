@@ -1,25 +1,24 @@
 import Image from "next/image";
-import type { ReactNode } from "react";
 import heroBg from "@/assets/images/hero-bg.png";
 
 /**
- * Hero and "מט"ח לעסקים" share one background in the design. On desktop the image is
- * scaled and offset exactly as in the Figma frame (2441px wide at 1440, globe on the left).
+ * One viewport-fixed homepage background. Transparent sections scroll over it.
+ * A real fixed layer (not background-attachment) so iOS Safari keeps it still.
+ * z-index -1 sits behind in-flow content; the body background is the canvas, so
+ * the layer stays visible through transparent sections and under opaque ones.
  */
-export function HeroBackdrop({ children }: { children: ReactNode }) {
+export function HeroBackdrop() {
   return (
-    <div className="relative isolate overflow-hidden bg-green-950">
+    <div aria-hidden className="pointer-events-none fixed top-0 start-0 -z-10 h-dvh w-full">
       <Image
         src={heroBg}
         alt=""
+        fill
         preload
         placeholder="blur"
-        sizes="(min-width: 1024px) 170vw, 100vw"
-        className="absolute inset-0 -z-10 size-full object-cover object-[22%_30%] lg:inset-auto lg:end-[-22.57%] lg:top-[-15.75rem] lg:aspect-[1695/1347] lg:h-auto lg:w-[169.5%] lg:max-w-none lg:object-fill"
+        sizes="100vw"
+        className="object-cover object-[22%_30%]"
       />
-      {/* Mobile only: text sits over the globe, so darken for legibility. */}
-      <div aria-hidden className="absolute inset-0 -z-10 bg-green-950/45 lg:hidden" />
-      {children}
     </div>
   );
 }

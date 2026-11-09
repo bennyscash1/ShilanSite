@@ -119,7 +119,7 @@ export function CalculatorWidget({ snapshot, disclaimer }: { snapshot: RatesSnap
   };
 
   return (
-    <div className="rounded-card border border-white bg-green-900/80 px-5 py-8 sm:px-10 lg:min-h-[368px] lg:px-[61px] lg:pt-[119px] lg:pb-6">
+    <div className="glass rounded-card px-5 py-8 sm:px-10 lg:min-h-[368px] lg:px-[61px] lg:pt-[119px] lg:pb-6">
       <div className="flex flex-col items-center gap-3 lg:flex-row lg:gap-0 [&>div]:focus-within:outline-2 [&>div]:focus-within:outline-offset-2 [&>div]:focus-within:outline-gold-500">
         {field("a", uiStrings.currencyA)}
         <div className="flex shrink-0 justify-center lg:w-[55px]">

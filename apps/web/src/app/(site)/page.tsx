@@ -10,10 +10,9 @@ import { Why } from "@/components/home/why";
 export default function HomePage() {
   return (
     <main id="main">
-      <HeroBackdrop>
-        <Hero />
-        <Business />
-      </HeroBackdrop>
+      <HeroBackdrop />
+      <Hero />
+      <Business />
       <Services />
       <Calculator />
       <Why />
