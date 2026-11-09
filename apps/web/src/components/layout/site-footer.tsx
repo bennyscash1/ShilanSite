@@ -90,8 +90,9 @@ export function SiteFooter() {
   return (
     <footer id="contact" className="bg-green-900 text-white">
       <div className="container-content py-16 md:py-24">
-        <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
-          <div className="order-last min-w-0 lg:order-first">
+        {/* RTL grid: the info column is on the right, the contact card on the left. */}
+        <div className="flex flex-col gap-12 lg:grid lg:grid-cols-[minmax(0,1fr)_394px] lg:items-stretch lg:gap-x-10">
+          <div className="flex min-w-0 flex-col">
             <div className="grid grid-cols-2 gap-8 lg:grid-cols-[254px_212px_minmax(0,1fr)] lg:gap-0">
               <LinkColumn title={footer.servicesTitle} links={footer.services} />
               <LinkColumn title={footer.companyTitle} links={footer.company} />
@@ -132,41 +133,41 @@ export function SiteFooter() {
                 <SocialPair />
               </div>
             </div>
+
+            <section className="mt-12" aria-labelledby="branches-heading">
+              <h2 id="branches-heading" className="text-h2 font-bold">
+                {footer.branchesTitle}
+              </h2>
+              <ul className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-3">
+                {branches.map((branch) => (
+                  <BranchColumn key={branch.name} branch={branch} />
+                ))}
+              </ul>
+            </section>
+
+            <div className="mt-8 border-t border-white pt-3 sm:w-[390px]">
+              <ul className="flex flex-wrap gap-3 text-title">
+                {footer.legal.map((link, i) => (
+                  <Fragment key={link.href}>
+                    {i > 0 && (
+                      <li aria-hidden className="select-none">
+                        |
+                      </li>
+                    )}
+                    <li>
+                      <Link href={link.href} className="hover:underline">
+                        {link.label}
+                      </Link>
+                    </li>
+                  </Fragment>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          <div className="order-first w-full lg:order-last lg:w-[394px] lg:shrink-0">
+          <div className="min-w-0 lg:h-full">
             <ContactForm />
           </div>
-        </div>
-
-        <section className="mt-16 md:mt-24" aria-labelledby="branches-heading">
-          <h2 id="branches-heading" className="text-h2 font-bold">
-            {footer.branchesTitle}
-          </h2>
-          <ul className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-3">
-            {branches.map((branch) => (
-              <BranchColumn key={branch.name} branch={branch} />
-            ))}
-          </ul>
-        </section>
-
-        <div className="mt-8 border-t border-white pt-3 sm:w-[390px]">
-          <ul className="flex gap-3 text-title">
-            {footer.legal.map((link, i) => (
-              <Fragment key={link.href}>
-                {i > 0 && (
-                  <li aria-hidden className="select-none">
-                    |
-                  </li>
-                )}
-                <li>
-                  <Link href={link.href} className="hover:underline">
-                    {link.label}
-                  </Link>
-                </li>
-              </Fragment>
-            ))}
-          </ul>
         </div>
       </div>
     </footer>

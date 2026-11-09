@@ -53,36 +53,43 @@ export function ContactForm() {
   }
 
   return (
-    <div className="rounded-card border border-white/80 bg-white/10 px-5 py-7 text-white sm:px-[45px] lg:pt-6 lg:pb-10">
+    <div className="flex h-full flex-col rounded-card border border-white/80 bg-white/10 px-5 py-7 text-white sm:px-[45px] lg:px-[42px] lg:pt-8 lg:pb-10">
       <h2 className="text-h3 font-bold">{contactForm.title}</h2>
       <p className="mt-2 text-body font-bold whitespace-pre-line">{contactForm.subtitle}</p>
 
-      <form ref={formRef} className="mt-6 flex flex-col gap-2" onSubmit={onSubmit} noValidate>
-        <Label htmlFor={`${id}-name`} className="sr-only">
-          {contactForm.name}
-        </Label>
-        <Input id={`${id}-name`} name="name" autoComplete="name" placeholder={contactForm.name} required />
+      <form
+        ref={formRef}
+        className="mt-6 flex flex-col gap-2 lg:mt-8 lg:flex-1 lg:justify-between"
+        onSubmit={onSubmit}
+        noValidate
+      >
+        <div className="flex flex-col gap-2">
+          <Label htmlFor={`${id}-name`} className="sr-only">
+            {contactForm.name}
+          </Label>
+          <Input id={`${id}-name`} name="name" autoComplete="name" placeholder={contactForm.name} required />
 
-        <Label htmlFor={`${id}-phone`} className="sr-only">
-          {contactForm.phone}
-        </Label>
-        <Input
-          id={`${id}-phone`}
-          name="phone"
-          type="tel"
-          inputMode="tel"
-          autoComplete="tel"
-          dir="rtl"
-          placeholder={contactForm.phone}
-          required
-        />
+          <Label htmlFor={`${id}-phone`} className="sr-only">
+            {contactForm.phone}
+          </Label>
+          <Input
+            id={`${id}-phone`}
+            name="phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            dir="rtl"
+            placeholder={contactForm.phone}
+            required
+          />
 
-        <Label htmlFor={`${id}-message`} className="sr-only">
-          {contactForm.message}
-        </Label>
-        <Textarea id={`${id}-message`} name="message" placeholder={contactForm.message} required />
+          <Label htmlFor={`${id}-message`} className="sr-only">
+            {contactForm.message}
+          </Label>
+          <Textarea id={`${id}-message`} name="message" placeholder={contactForm.message} required />
+        </div>
 
-        <p id={`${id}-audience`} className="mt-1 text-field">
+        <p id={`${id}-audience`} className="mt-1 text-field lg:mt-0">
           {contactForm.audienceLabel}
         </p>
         <ChipGroup
