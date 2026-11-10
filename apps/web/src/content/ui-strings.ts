@@ -20,6 +20,12 @@ export const uiStrings = {
   amountIn: (currencyName: string) => `סכום ב${currencyName}`,
   swapCurrencies: "החלפת מטבעות",
   ratesUpdated: "עדכון אחרון:",
+  notFound: {
+    title: "העמוד לא נמצא",
+    description: "יתכן שהכתובת השתנתה או שהעמוד הוסר.",
+    home: "לדף הבית",
+    contact: "יצירת קשר",
+  },
 } as const;
 
 /** Blog pages. Developer-written (the design has no blog page): review with the business. */

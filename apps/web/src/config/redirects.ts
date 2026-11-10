@@ -1,35 +1,39 @@
 /**
  * 301 redirects from the old WordPress site (shilan.co.il) to the new routes.
- * Fill in `from` with the old WordPress path (no domain). `:slug*` style params are supported.
- * Example: { from: "/services/currency-exchange/", to: "/services/fx-exchange" }
+ * Next matches the percent-encoded request path, and strips a trailing slash
+ * before these rules run, so `from` is encoded and has no trailing slash.
  */
 export type LegacyRedirect = { from: string; to: string };
 
+/** Encode a WordPress path like "יצירת-קשר" or "דף-נחיתה/המרת-מטח-2". */
+export function wpPath(path: string): string {
+  return `/${path
+    .split("/")
+    .filter(Boolean)
+    .map((segment) => encodeURIComponent(segment))
+    .join("/")}`;
+}
+
 export const legacyRedirects: LegacyRedirect[] = [
-  // WordPress paths. Next matches the percent-encoded request path, and strips
-  // a trailing slash before these rules run.
-  { from: "/%D7%94%D7%A7%D7%9E%D7%AA-%D7%9C%D7%A7%D7%95%D7%97", to: "/signup" },
-  { from: "/%D7%9C%D7%A7%D7%95%D7%97-%D7%A4%D7%A8%D7%98%D7%99", to: "/signup/private" },
-  {
-    from: "/%D7%9C%D7%A7%D7%95%D7%97-%D7%A2%D7%A1%D7%A7%D7%99-%D7%A2%D7%95%D7%A1%D7%A7-%D7%9E%D7%95%D7%A8%D7%A9%D7%94",
-    to: "/signup/osek",
-  },
-  {
-    from: "/%D7%9C%D7%A7%D7%95%D7%97-%D7%A2%D7%99%D7%A1%D7%A7%D7%99-%D7%AA%D7%90%D7%92%D7%99%D7%93",
-    to: "/signup/corporation",
-  },
-  { from: "/%D7%90%D7%95%D7%93%D7%95%D7%AA%D7%99%D7%A0%D7%95", to: "/about" },
-  { from: "/%D7%9E%D7%93%D7%99%D7%A0%D7%99%D7%95%D7%AA-%D7%A4%D7%A8%D7%98%D7%99%D7%95%D7%AA", to: "/privacy" },
-  { from: "/%D7%94%D7%A6%D7%94%D7%A8%D7%AA-%D7%A0%D7%92%D7%99%D7%A9%D7%95%D7%AA", to: "/accessibility" },
-  // | Old WordPress URL                  | New URL                              |
-  // |------------------------------------|--------------------------------------|
-  // { from: "/TODO-old-about-page/",        to: "/about" },
-  // { from: "/TODO-old-contact-page/",      to: "/contact" },
-  // { from: "/TODO-old-fx-exchange/",       to: "/services/fx-exchange" },
-  // { from: "/TODO-old-transfers/",         to: "/services/international-transfers" },
-  // { from: "/TODO-old-fx-credit/",         to: "/services/fx-credit" },
-  // { from: "/TODO-old-prepaid-card/",      to: "/services/prepaid-card" },
-  // { from: "/TODO-old-check-discounting/", to: "/services/check-discounting" },
-  // { from: "/TODO-old-privacy/",           to: "/privacy" },
-  // { from: "/TODO-old-accessibility/",     to: "/accessibility" },
+  { from: wpPath("הקמת-לקוח"), to: "/signup" },
+  { from: wpPath("לקוח-פרטי"), to: "/signup/private" },
+  { from: wpPath("לקוח-עסקי-עוסק-מורשה"), to: "/signup/osek" },
+  { from: wpPath("לקוח-עיסקי-תאגיד"), to: "/signup/corporation" },
+  { from: wpPath("אודותינו"), to: "/about" },
+  { from: wpPath("מדיניות-פרטיות"), to: "/privacy" },
+  { from: wpPath("הצהרת-נגישות"), to: "/accessibility" },
+  // Google still indexes the old contact URL (hyphen and space variants).
+  { from: wpPath("יצירת-קשר"), to: "/#contact" },
+  { from: wpPath("יצירת קשר"), to: "/#contact" },
+  { from: wpPath("המרת-מטח"), to: "/services/fx-exchange" },
+  { from: wpPath("העברת-מטח"), to: "/services/international-transfers" },
+  { from: wpPath("מכירת-מטח"), to: "/services/fx-credit" },
+  { from: wpPath("ניכיון-שיקים"), to: "/services/check-discounting" },
+  { from: wpPath("ניכיון-שיקים-ללקוחות-עסקיים"), to: "/services/check-discounting" },
+  // No dedicated new page for the old ATM / digital-machines page.
+  { from: wpPath("שילן-דיגיטל"), to: "/" },
+  // Specific landing pages first; unmatched /דף-נחיתה/* go to the homepage.
+  { from: wpPath("דף-נחיתה/המרת-מטח-2"), to: "/services/fx-exchange" },
+  { from: wpPath("דף-נחיתה/מכירת-מטח-בכרטיס-אשראי"), to: "/services/fx-credit" },
+  { from: `${wpPath("דף-נחיתה")}/:slug*`, to: "/" },
 ];
