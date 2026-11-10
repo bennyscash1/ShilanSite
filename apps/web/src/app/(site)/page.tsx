@@ -7,6 +7,8 @@ import { Services } from "@/components/home/services";
 import { Testimonials } from "@/components/home/testimonials";
 import { Why } from "@/components/home/why";
 
+export const revalidate = 3600;
+
 export default function HomePage() {
   return (
     <main id="main">

@@ -9,7 +9,9 @@ export const COLLECTIONS = {
   usernames: "usernames",
   leads: "leads",
   testimonials: "testimonials",
-  /** Admin overrides for rates and spreads (phase 2). */
+  /** Latest official representative rates fetched from the Bank of Israel. */
+  exchangeRates: "exchangeRates",
+  /** Admin overrides for rates and spreads (phase 2). Not written by the daily fetch. */
   rateOverrides: "rateOverrides",
   /** Rate-limit counters for public endpoints. */
   rateLimits: "rateLimits",

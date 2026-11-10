@@ -4,21 +4,21 @@ Phase 1 is the public marketing site (`apps/web`). Later phases plug into the sa
 
 ## Layout
 
-| Path | Role |
-|---|---|
-| `apps/web` | Next.js 16 App Router site (RSC by default, Hebrew RTL) |
-| `apps/admin` | Placeholder for the phase 2 admin panel |
-| `packages/ui` | Design tokens (`src/styles/theme.css`) and shared React components on Radix |
-| `packages/core` | Pure domain logic with no framework imports: currencies, money math, rates, conversion |
-| `packages/firebase` | Firestore collection names, typed converters, Admin SDK helpers (server only) |
-| `packages/config` | Shared tsconfig and ESLint configs |
+| Path                | Role                                                                                   |
+| ------------------- | -------------------------------------------------------------------------------------- |
+| `apps/web`          | Next.js 16 App Router site (RSC by default, Hebrew RTL)                                |
+| `apps/admin`        | Placeholder for the phase 2 admin panel                                                |
+| `packages/ui`       | Design tokens (`src/styles/theme.css`) and shared React components on Radix            |
+| `packages/core`     | Pure domain logic with no framework imports: currencies, money math, rates, conversion |
+| `packages/firebase` | Firestore collection names, typed converters, Admin SDK helpers (server only)          |
+| `packages/config`   | Shared tsconfig and ESLint configs                                                     |
 
 Workspace packages ship TypeScript source; `apps/web` compiles them via `transpilePackages`. No package build step.
 
 ## Decisions
 
 - **Money math.** Amounts are `bigint` minor units. Rates are decimal strings from the provider, parsed to `bigint` scaled by 10^8. Rounding is half away from zero. No floats and no decimal library dependency. See `packages/core/src/convert.ts`.
-- **Rates.** Every source implements `RatesProvider` (`packages/core/src/rate.ts`). All rates are expressed as ILS per unit; cross rates go through ILS. Phase 2 admin overrides become a provider decorator that reads `rateOverrides` from Firestore and applies `spreadBps`.
+- **Rates.** Every source implements `RatesProvider` (`packages/core/src/rate.ts`). All rates are expressed as ILS per unit; cross rates go through ILS. The homepage widget reads the latest Bank of Israel representative rates from Firestore `exchangeRates/latest`, refreshed by `GET /api/cron/rates` at 03:00 and 04:00 UTC (06:00 Israel time in DST and standard time). The static mock snapshot is the fallback if the store is empty or a fetch fails. Phase 2 admin overrides become a provider decorator that reads `rateOverrides` from Firestore and applies `spreadBps`; the daily fetch does not write that collection.
 - **RTL.** `<html dir="rtl">` plus Radix `DirectionProvider`. Only logical Tailwind utilities are allowed (`ms/me`, `ps/pe`, `start/end`); the custom ESLint rule `rtl/no-physical-classes` fails the build on `ml-`, `right-`, `text-left`, and so on.
 - **Tailwind v4 preset.** v4 has no JS presets. `packages/ui/src/styles/theme.css` is the shared preset; each app imports it after `tailwindcss` and adds an `@source` for `packages/ui/src`.
 - **Accessibility (IS 5568 / WCAG 2.0 AA).** Two Figma colors fail contrast and are replaced:
