@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { mainNav, serviceNav } from "./site";
+import { contact, mainNav, serviceNav } from "./site";
 
 describe("main navigation", () => {
   it("opens the service pages from the services item", () => {
@@ -14,6 +14,17 @@ describe("main navigation", () => {
       "/services/prepaid-card",
       "/services/check-discounting",
     ]);
-    expect(serviceNav.filter((item) => item.href !== "/business").every((item) => item.href.startsWith("/services/"))).toBe(true);
+    expect(
+      serviceNav
+        .filter((item) => item.href !== "/business")
+        .every((item) => item.href.startsWith("/services/")),
+    ).toBe(true);
+  });
+});
+
+describe("WhatsApp contact", () => {
+  it("uses the existing site click-to-chat number", () => {
+    expect(contact.whatsapp.href).toBe("https://wa.me/972506554660");
+    expect(contact.whatsapp.display).toBe("050-655-4660");
   });
 });

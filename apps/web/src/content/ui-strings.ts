@@ -5,6 +5,7 @@
  */
 export const uiStrings = {
   skipToContent: "דילוג לתוכן הראשי",
+  whatsappButton: "שליחת הודעה בוואטסאפ, נפתח בחלון חדש",
   homeLink: "שילן שירותי המרה - לדף הבית",
   openMenu: "פתיחת תפריט",
   closeMenu: "סגירת תפריט",
